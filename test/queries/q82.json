@@ -1,0 +1,35 @@
+{
+    "title": "NULL Type Given for Dept/Instructor/Avg",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": null
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": null
+                    }
+                },
+                {
+                    "GT": {
+                        "courses_avg": null
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Null type given"
+}

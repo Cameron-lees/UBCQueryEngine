@@ -1,0 +1,19 @@
+{
+    "title": "Invalid Filter",
+    "query": {
+        "WHERE": {
+            "GTT": {
+                "courses_avgInvalid":97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: The Filter Key is invalid"
+}

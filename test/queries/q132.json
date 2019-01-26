@@ -1,0 +1,25 @@
+{
+    "title": "Invalid Query",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "NOT": {
+                    "EQ": {
+                        "courses_avg": 99
+                    }
+                }
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "IS value must be of type string"
+}
+

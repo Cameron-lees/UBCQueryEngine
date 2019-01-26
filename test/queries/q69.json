@@ -1,0 +1,21 @@
+{
+    "title": "Invalid Comparison for GT",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_dept": "cpsc"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Invalid Comparison for GT"
+}
+

@@ -1,0 +1,24 @@
+{
+    "title": "GT inside of an IS",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "GT": {
+                    "courses_avg": 85
+                }
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title"
+            ],
+            "ORDER": "courses_id"
+        }
+    },
+    "isQueryValid": false,
+    "result":"Error: Cannot have GT inside of an IS"
+}

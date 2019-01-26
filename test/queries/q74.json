@@ -1,0 +1,22 @@
+{
+    "title": "Invalid NOT - Invalid Filter",
+    "query": {
+        "WHERE": {
+            "NOT": {
+                "GGT": {
+                    "courses_avg": 0
+                }
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_id",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Invalid NOT - requires a valid Filter inside"
+}

@@ -1,0 +1,38 @@
+{
+    "title": "Order by instructor (Testing ordering by a string)",
+    "query": {
+        "WHERE": {
+            "EQ": {
+                "courses_avg":96
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_instructor",
+                "courses_avg"
+            ],
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"epse","courses_id":"303","courses_instructor":"","courses_avg":96},
+    {"courses_dept":"psyc","courses_id":"549","courses_instructor":"","courses_avg":96},
+    {"courses_dept":"psyc","courses_id":"501","courses_instructor":"","courses_avg":96},
+    {"courses_dept":"pcth","courses_id":"549","courses_instructor":"","courses_avg":96},
+    {"courses_dept":"kin","courses_id":"499","courses_instructor":"","courses_avg":96},
+    {"courses_dept":"cnps","courses_id":"584","courses_instructor":"carter, john","courses_avg":96},
+    {"courses_dept":"psyc","courses_id":"501","courses_instructor":"de longis, anita","courses_avg":96},
+    {"courses_dept":"crwr","courses_id":"599","courses_instructor":"galloway, steve","courses_avg":96},
+    {"courses_dept":"phil","courses_id":"120","courses_instructor":"jackson, howard","courses_avg":96},
+    {"courses_dept":"epse","courses_id":"528","courses_instructor":"kishor, nand","courses_avg":96},
+    {"courses_dept":"crwr","courses_id":"599","courses_instructor":"maillard, keith","courses_avg":96},
+    {"courses_dept":"crwr","courses_id":"599","courses_instructor":"maillard, keith","courses_avg":96},
+    {"courses_dept":"crwr","courses_id":"599","courses_instructor":"medved, maureen","courses_avg":96},
+    {"courses_dept":"epse","courses_id":"303","courses_instructor":"porath, marion","courses_avg":96},
+    {"courses_dept":"crwr","courses_id":"599","courses_instructor":"taylor, timothy","courses_avg":96},
+    {"courses_dept":"apsc","courses_id":"279","courses_instructor":"wassink, berend","courses_avg":96}
+    ]
+}

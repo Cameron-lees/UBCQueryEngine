@@ -1,0 +1,36 @@
+{
+    "title": "Simple courses 2 keys",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "econ"
+                    }
+                },
+                {
+                    "GT": {
+                        "courses_avg": 93
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg"
+            ],
+            "ORDER": {
+                "dir": "UP",
+                "keys": [
+                    "courses_dept",
+                    "courses_avg"
+                ]
+            }
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {"courses_dept":"econ","courses_avg":93.33},{"courses_dept":"econ","courses_avg":93.33},{"courses_dept":"econ","courses_avg":93.47},{"courses_dept":"econ","courses_avg":93.47},{"courses_dept":"econ","courses_avg":93.52},{"courses_dept":"econ","courses_avg":93.52},{"courses_dept":"econ","courses_avg":95},{"courses_dept":"econ","courses_avg":95}
+    ]
+}

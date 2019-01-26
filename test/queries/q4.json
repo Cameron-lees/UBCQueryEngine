@@ -1,0 +1,15 @@
+{
+    "title": "small",
+    "query": {
+        "WHERE": {},
+        "OPTIONS": {
+            "COLUMNS": [
+                "small_dept",
+                "small_avg"
+            ],
+            "ORDER": "small_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": []
+}

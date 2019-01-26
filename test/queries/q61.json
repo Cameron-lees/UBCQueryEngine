@@ -1,0 +1,22 @@
+{
+    "title": "Multiple Keys in IS",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "courses_instructor": "holmes, reid",
+                "courses_dept": "cpsc"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Multiple keys in IS"
+}
+

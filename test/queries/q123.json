@@ -1,0 +1,44 @@
+{
+    "title": "Both GT invalid - Empty Result",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_fail": 200
+                    }
+                },
+                {
+                    "GT": {
+                        "courses_avg": -15
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_fail"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+   "result":[{"courses_dept":"chem","courses_avg":63.33,"courses_fail":213},
+    {"courses_dept":"math","courses_avg":64.55,"courses_fail":203},
+    {"courses_dept":"biol","courses_avg":64.73,"courses_fail":204},
+    {"courses_dept":"chem","courses_avg":64.94,"courses_fail":226},
+    {"courses_dept":"math","courses_avg":65.38,"courses_fail":222},
+    {"courses_dept":"math","courses_avg":65.99,"courses_fail":205},
+    {"courses_dept":"econ","courses_avg":67.24,"courses_fail":221},
+    {"courses_dept":"chem","courses_avg":67.42,"courses_fail":266},
+    {"courses_dept":"chem","courses_avg":68.2,"courses_fail":287},
+    {"courses_dept":"chem","courses_avg":68.72,"courses_fail":264},
+    {"courses_dept":"biol","courses_avg":68.77,"courses_fail":230},
+    {"courses_dept":"chem","courses_avg":68.77,"courses_fail":260},
+    {"courses_dept":"chem","courses_avg":69.3,"courses_fail":250},
+    {"courses_dept":"chem","courses_avg":69.41,"courses_fail":251},
+    {"courses_dept":"chem","courses_avg":70.22,"courses_fail":235}
+   ]
+}

@@ -1,0 +1,22 @@
+{
+    "title": "NOT is missing filter",
+    "query": {
+        "WHERE": {
+            "NOT": {
+                "courses_avg": 90
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_instructor",
+                "courses_avg",
+                "courses_title"
+            ],
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Not must include a filter"
+}

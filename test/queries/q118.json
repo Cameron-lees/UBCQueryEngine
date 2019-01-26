@@ -1,0 +1,24 @@
+{
+    "title": "Nested Wildcard - Invalid Filter",
+    "query": {
+        "WHERE": {
+            "AN": [
+                {
+                    "IS": {
+                        "courses_instructor": "*reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Invalid Filter AN"
+}

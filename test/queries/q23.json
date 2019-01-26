@@ -1,0 +1,20 @@
+{
+    "title": "MComparison Not a Number Courses_avg",
+    "query": {
+        "WHERE": {
+            "LT": {
+                "courses_avg": "Invalid"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "The MComparison value must be a number."
+}

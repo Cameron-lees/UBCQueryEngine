@@ -1,0 +1,29 @@
+{
+    "title": "Invalid MComparator inside AND",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "GGT": {
+                        "courses_avg": 50
+                    }
+                },
+                {
+                    "LT": {
+                        "courses_avg": 50
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error GTT isn't a valid comparator"
+}

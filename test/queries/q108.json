@@ -1,0 +1,30 @@
+{
+    "title": "Simple Wild Card - Search After ",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "courses_instructor" : "holmes*"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+    {"courses_dept":"math","courses_avg":70.29,"courses_id":"103","courses_instructor":"holmes, william"},
+    {"courses_dept":"math","courses_avg":73.8,"courses_id":"103","courses_instructor":"holmes, william"},
+    {"courses_dept":"cpsc","courses_avg":79,"courses_id":"410","courses_instructor":"holmes, reid"},
+    {"courses_dept":"cpsc","courses_avg":81.17,"courses_id":"310","courses_instructor":"holmes, reid"},
+    {"courses_dept":"path","courses_avg":84.91,"courses_id":"407","courses_instructor":"holmes, daniel;keown, paul anthony;li, dailin;martz, walter;mattman, andre;pudek, morris;purssell, roy"},
+    {"courses_dept":"path","courses_avg":85.6,"courses_id":"407","courses_instructor":"holmes, daniel;jung, benjamin;keown, paul anthony;li, dailin;nislow, corey;pudek, morris;purssell, roy;xenakis, jennifer"},
+    {"courses_dept":"path","courses_avg":88.27,"courses_id":"407","courses_instructor":"holmes, daniel;keown, paul anthony;li, dailin;mattman, andre;pudek, morris;purssell, roy"},
+    {"courses_dept":"cpsc","courses_avg":89,"courses_id":"507","courses_instructor":"holmes, reid"}
+    ]
+}

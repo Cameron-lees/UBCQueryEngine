@@ -1,0 +1,36 @@
+{
+    "title": "Wildcard on both sides",
+    "query": {
+        "WHERE": {
+                    "IS": {
+                        "courses_uuid": "*1234*"
+                    }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+   "result":[{"courses_dept":"japn","courses_avg":66.64,"courses_instructor":""},
+    {"courses_dept":"frst","courses_avg":68.89,"courses_instructor":"watts, susan"},
+    {"courses_dept":"japn","courses_avg":70.56,"courses_instructor":"koizumi, keiko"},
+    {"courses_dept":"japn","courses_avg":70.56,"courses_instructor":""},
+    {"courses_dept":"japn","courses_avg":72.85,"courses_instructor":"koizumi, keiko"},
+    {"courses_dept":"japn","courses_avg":72.85,"courses_instructor":""},
+    {"courses_dept":"cpen","courses_avg":73.42,"courses_instructor":""},
+    {"courses_dept":"japn","courses_avg":73.54,"courses_instructor":""},
+    {"courses_dept":"japn","courses_avg":73.54,"courses_instructor":"tsuda, asami"},
+    {"courses_dept":"chem","courses_avg":75.69,"courses_instructor":"zendrowski, dana"},
+    {"courses_dept":"comm","courses_avg":76.08,"courses_instructor":"milne, tamar"},
+    {"courses_dept":"japn","courses_avg":76.5,"courses_instructor":"tsuda, asami"},
+    {"courses_dept":"japn","courses_avg":79.83,"courses_instructor":""},
+    {"courses_dept":"japn","courses_avg":79.83,"courses_instructor":"mostow, joshua scott"},
+    {"courses_dept":"arch","courses_avg":81.03,"courses_instructor":"mcdonald, ian ross"},
+    {"courses_dept":"phys","courses_avg":87.06,"courses_instructor":"kotlicki, andrzej"}
+   ]
+}

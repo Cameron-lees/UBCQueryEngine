@@ -1,0 +1,20 @@
+{
+    "title": "Invalid Comparison for EQ",
+    "query": {
+        "WHERE": {
+            "EQ": {
+                "courses_instructor": "holmes, reid"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Invalid Comparison for EQ"
+}

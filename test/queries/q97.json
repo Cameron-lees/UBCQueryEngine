@@ -1,0 +1,33 @@
+{
+    "title": "AND inside of an IS",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "AND":[
+                    {
+                        "GT": {
+                            "courses_avg": 85
+                        }
+                    },
+                    {
+                        "IS": {
+                            "courses_dept":"comm"
+                        }
+                    }
+                ]
+            }
+        },
+    "OPTIONS": {
+        "COLUMNS": [
+            "courses_dept",
+            "courses_id",
+            "courses_avg",
+            "courses_instructor",
+            "courses_title"
+        ],
+        "ORDER": "courses_id"
+     }
+    },
+    "isQueryValid": false,
+    "result":"Error: Cannot have AND inside of an IS"
+}

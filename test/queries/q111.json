@@ -1,0 +1,38 @@
+{
+    "title": "Nested Wildcard on both sides",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 90
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "*om*"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+    {"courses_dept":"comm","courses_avg":92.45,"courses_instructor":"ghement, isabella"},
+    {"courses_dept":"comm","courses_avg":92.45,"courses_instructor":""},
+    {"courses_dept":"comm","courses_avg":94.5,"courses_instructor":"ghement, isabella"},
+    {"courses_dept":"comm","courses_avg":94.5,"courses_instructor":""},
+    {"courses_dept":"comm","courses_avg":94.56,"courses_instructor":"ghement, isabella"},
+    {"courses_dept":"comm","courses_avg":94.56,"courses_instructor":""},
+    {"courses_dept":"comm","courses_avg":94.75,"courses_instructor":"ghement, isabella"},
+    {"courses_dept":"comm","courses_avg":94.75,"courses_instructor":""}
+    ]
+}

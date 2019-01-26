@@ -1,0 +1,25 @@
+{
+    "title": "EQ > 100",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "EQ": {
+                        "courses_avg": 101
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+    ]
+}

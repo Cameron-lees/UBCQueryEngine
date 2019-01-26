@@ -1,0 +1,32 @@
+{
+    "title": "Negative Value GT",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "GT": {
+                        "courses_avg": -1
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "holmes, reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+   "result":[{"courses_dept":"cpsc","courses_id":"410","courses_avg":79},
+    {"courses_dept":"cpsc","courses_id":"310","courses_avg":81.17},
+    {"courses_dept":"cpsc","courses_id":"507","courses_avg":89}
+   ]
+}

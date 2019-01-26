@@ -1,0 +1,29 @@
+{
+    "title": "Invalid MComparator inside OR",
+    "query": {
+        "WHERE": {
+            "OR":[
+                {
+                    "GT": {
+                        "courses_avg": 50
+                    }
+                },
+                {
+                    "LLT": {
+                        "courses_avg": 50
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error LLT isn't a valid comparator"
+}

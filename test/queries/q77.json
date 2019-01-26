@@ -1,0 +1,8 @@
+{
+    "title": "Malformed Query",
+    "query": {
+        "Malformed" : "Query"
+    },
+    "isQueryValid": false,
+    "result": "Error: Malformed Query"
+}

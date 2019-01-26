@@ -1,0 +1,32 @@
+{
+    "title": "AND EQ/IS",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "EQ": {
+                        "courses_avg": 95
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "cpsc"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_id":"589","courses_avg":95},
+        {"courses_dept":"cpsc","courses_id":"589","courses_avg":95}
+    ]
+}

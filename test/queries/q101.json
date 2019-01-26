@@ -1,0 +1,24 @@
+{
+    "title": "IS inside of an IS",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "IS": {
+                    "courses_dept": "cpsc"
+                }
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor",
+                "courses_title"
+            ],
+            "ORDER": "courses_id"
+        }
+    },
+    "isQueryValid": false,
+    "result":"Error: Cannot have IS inside of an IS"
+}

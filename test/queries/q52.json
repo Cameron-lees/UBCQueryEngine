@@ -1,0 +1,34 @@
+{
+    "title": "OR EQ/IS",
+    "query": {
+        "WHERE": {
+            "OR": [
+                {
+                    "EQ": {
+                        "courses_avg": 99
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "holmes, reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_id":"410","courses_avg":79,"courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_id":"310","courses_avg":81.17,"courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_id":"507","courses_avg":89,"courses_instructor":"holmes, reid"}
+    ]
+}

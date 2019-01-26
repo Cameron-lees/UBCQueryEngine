@@ -1,0 +1,69 @@
+{
+    "title": "test1",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_fullname": "Henry Angus"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_fullname",
+                "maxSeats",
+                "sumCount"
+            ],
+            "ORDER": {
+                "dir": "DOWN",
+                "keys": [
+                    "maxSeats",
+                    "sumCount"
+                ]
+            }
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "rooms_fullname"
+            ],
+            "APPLY": [
+                {
+                    "maxSeats": {
+                        "SUM": "rooms_seats"
+                    }
+                },
+                {
+                    "sumCount": {
+                        "SUM": "rooms_lat"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": true,
+
+    "result": [
+        {
+            "rooms_fullname": "Henry Angus",
+            "maxSeats": 260,
+            "sumCount": 49.26
+        },
+        {
+            "rooms_fullname": "Aquatic Ecosystems Research Laboratory",
+            "maxSeats": 144,
+            "sumCount": 49.26
+        },
+        {
+            "rooms_fullname": "Mathematics Annex",
+            "maxSeats": 106,
+            "sumCount": 49.27
+        }
+    ]
+}

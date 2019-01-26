@@ -1,0 +1,19 @@
+{
+    "title": "Invalid ID and key",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg":97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg"
+            ],
+            "ORDER": "coursesInvalid_avgInvalid"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: The Order key ID and key is invalid"
+}

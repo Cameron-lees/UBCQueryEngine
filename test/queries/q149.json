@@ -1,0 +1,22 @@
+{
+    "title": "small",
+    "query": {
+        "WHERE": {
+
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "small_dept",
+                "small_avg"
+            ],
+            "ORDER": "small_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        { "small_dept": "aanb", "small_avg": 87.83},
+        { "small_dept": "aanb", "small_avg": 87.83},
+        { "small_dept": "aanb", "small_avg": 94.44},
+        { "small_dept": "aanb", "small_avg": 94.44}
+    ]
+}

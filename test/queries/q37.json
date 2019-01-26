@@ -1,0 +1,38 @@
+{
+    "title": "Search for specific course and professor (Our class)",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "cpsc"
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_id": "310"
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "holmes, reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_instructor",
+                "courses_avg",
+                "courses_title"
+            ],
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_id":"310","courses_instructor":"holmes, reid","courses_avg":81.17,"courses_title":"intr sftwr eng"}
+    ]
+}

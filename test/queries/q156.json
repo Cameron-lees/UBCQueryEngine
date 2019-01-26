@@ -1,0 +1,32 @@
+{
+    "title": "Simple Rooms",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "LT": {
+                        "rooms_seats": 200
+                    }
+                },
+                {
+                    "IS": {
+                        "rooms_shortname": "ANGU"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_seats",
+                "rooms_shortname",
+                "rooms_fullname"
+            ],
+            "ORDER": "rooms_fullname"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"rooms_seats":37,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":54,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":16,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":60,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":41,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":41,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":70,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":68,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":80,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":54,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":35,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":32,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":54,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":54,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":16,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":60,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":41,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":20,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":68,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":68,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":70,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":58,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":44,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":16,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":44,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":53,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"},{"rooms_seats":32,"rooms_shortname":"ANGU","rooms_fullname":"Henry Angus"}
+    ]
+}
+

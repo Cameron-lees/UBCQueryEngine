@@ -1,0 +1,16 @@
+{
+    "title": "Missing Options",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "cpsc"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Must include Options"
+}

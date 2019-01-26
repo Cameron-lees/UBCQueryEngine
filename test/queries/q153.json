@@ -1,0 +1,23 @@
+{
+    "title": "Options Empty",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "GT": {
+                        "courses_avg": -1
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "holmes, reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+        }
+    },
+    "isQueryValid": false,
+    "result": "error"
+}

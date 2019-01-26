@@ -1,0 +1,29 @@
+{
+    "title": "Both GT and LT invalid - Empty Result",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 190
+                    }
+                },
+                {
+                    "LT": {
+                        "courses_avg": -15
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": []
+}

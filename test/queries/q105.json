@@ -1,0 +1,18 @@
+{
+    "title": "Missing Filter Inside WHERE",
+    "query": {
+        "WHERE": {
+                "courses_avg" : 0
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Cannot have missing filter"
+}

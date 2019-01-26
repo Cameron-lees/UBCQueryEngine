@@ -1,0 +1,19 @@
+{
+    "title": "Invalid NOT - Missing Filter",
+    "query": {
+        "WHERE": {
+            "NOT": {
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Invalid NOT - requires a COMPARISON"
+}

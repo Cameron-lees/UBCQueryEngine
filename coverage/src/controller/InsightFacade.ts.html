@@ -1,0 +1,4238 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/controller/InsightFacade.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">src/controller</a> InsightFacade.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.47% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>744/841</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">73.68% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>322/437</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">94.92% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>56/59</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">88.47% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>744/841</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777
+778
+779
+780
+781
+782
+783
+784
+785
+786
+787
+788
+789
+790
+791
+792
+793
+794
+795
+796
+797
+798
+799
+800
+801
+802
+803
+804
+805
+806
+807
+808
+809
+810
+811
+812
+813
+814
+815
+816
+817
+818
+819
+820
+821
+822
+823
+824
+825
+826
+827
+828
+829
+830
+831
+832
+833
+834
+835
+836
+837
+838
+839
+840
+841
+842
+843
+844
+845
+846
+847
+848
+849
+850
+851
+852
+853
+854
+855
+856
+857
+858
+859
+860
+861
+862
+863
+864
+865
+866
+867
+868
+869
+870
+871
+872
+873
+874
+875
+876
+877
+878
+879
+880
+881
+882
+883
+884
+885
+886
+887
+888
+889
+890
+891
+892
+893
+894
+895
+896
+897
+898
+899
+900
+901
+902
+903
+904
+905
+906
+907
+908
+909
+910
+911
+912
+913
+914
+915
+916
+917
+918
+919
+920
+921
+922
+923
+924
+925
+926
+927
+928
+929
+930
+931
+932
+933
+934
+935
+936
+937
+938
+939
+940
+941
+942
+943
+944
+945
+946
+947
+948
+949
+950
+951
+952
+953
+954
+955
+956
+957
+958
+959
+960
+961
+962
+963
+964
+965
+966
+967
+968
+969
+970
+971
+972
+973
+974
+975
+976
+977
+978
+979
+980
+981
+982
+983
+984
+985
+986
+987
+988
+989
+990
+991
+992
+993
+994
+995
+996
+997
+998
+999
+1000
+1001
+1002
+1003
+1004
+1005
+1006
+1007
+1008
+1009
+1010
+1011
+1012
+1013
+1014
+1015
+1016
+1017
+1018
+1019
+1020
+1021
+1022
+1023
+1024
+1025
+1026
+1027
+1028
+1029
+1030
+1031
+1032
+1033
+1034
+1035
+1036
+1037
+1038
+1039
+1040
+1041
+1042
+1043
+1044
+1045
+1046
+1047
+1048
+1049
+1050
+1051
+1052
+1053
+1054
+1055
+1056
+1057
+1058
+1059
+1060
+1061
+1062
+1063
+1064
+1065
+1066
+1067
+1068
+1069
+1070
+1071
+1072
+1073
+1074
+1075
+1076
+1077
+1078
+1079
+1080
+1081
+1082
+1083
+1084
+1085
+1086
+1087
+1088
+1089
+1090
+1091
+1092
+1093
+1094
+1095
+1096
+1097
+1098
+1099
+1100
+1101
+1102
+1103
+1104
+1105
+1106
+1107
+1108
+1109
+1110
+1111
+1112
+1113
+1114
+1115
+1116
+1117
+1118
+1119
+1120
+1121
+1122
+1123
+1124
+1125
+1126
+1127
+1128
+1129
+1130
+1131
+1132
+1133
+1134
+1135
+1136
+1137
+1138
+1139
+1140
+1141
+1142
+1143
+1144
+1145
+1146
+1147
+1148
+1149
+1150
+1151
+1152
+1153
+1154
+1155
+1156
+1157
+1158
+1159
+1160
+1161
+1162
+1163
+1164
+1165
+1166
+1167
+1168
+1169
+1170
+1171
+1172
+1173
+1174
+1175
+1176
+1177
+1178
+1179
+1180
+1181
+1182
+1183
+1184
+1185
+1186
+1187
+1188
+1189
+1190
+1191
+1192
+1193
+1194
+1195
+1196
+1197
+1198
+1199
+1200
+1201
+1202
+1203
+1204
+1205
+1206
+1207
+1208
+1209
+1210
+1211
+1212
+1213
+1214
+1215
+1216
+1217
+1218
+1219
+1220
+1221
+1222
+1223
+1224
+1225
+1226
+1227
+1228
+1229
+1230
+1231
+1232
+1233
+1234
+1235
+1236
+1237
+1238
+1239
+1240
+1241
+1242
+1243
+1244
+1245
+1246
+1247
+1248
+1249
+1250
+1251
+1252
+1253
+1254
+1255
+1256
+1257
+1258
+1259
+1260
+1261
+1262
+1263
+1264
+1265
+1266
+1267
+1268
+1269
+1270
+1271
+1272
+1273
+1274
+1275
+1276
+1277
+1278
+1279
+1280
+1281
+1282
+1283
+1284
+1285
+1286
+1287
+1288
+1289
+1290
+1291
+1292
+1293
+1294
+1295
+1296
+1297
+1298
+1299
+1300
+1301
+1302
+1303
+1304
+1305
+1306
+1307
+1308
+1309
+1310
+1311
+1312
+1313
+1314
+1315
+1316
+1317
+1318
+1319
+1320
+1321
+1322
+1323
+1324
+1325
+1326
+1327
+1328
+1329
+1330
+1331
+1332
+1333
+1334
+1335
+1336
+1337
+1338
+1339
+1340
+1341
+1342
+1343
+1344
+1345
+1346
+1347
+1348
+1349
+1350
+1351
+1352
+1353
+1354
+1355
+1356
+1357
+1358
+1359
+1360
+1361
+1362
+1363
+1364
+1365
+1366
+1367
+1368
+1369
+1370
+1371
+1372
+1373
+1374
+1375
+1376
+1377
+1378
+1379
+1380
+1381
+1382
+1383
+1384
+1385
+1386
+1387
+1388
+1389
+1390
+1391
+1392</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">23787x</span>
+<span class="cline-any cline-yes">23787x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">23787x</span>
+<span class="cline-any cline-yes">23784x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-yes">132x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-yes">1092x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104031x</span>
+<span class="cline-any cline-yes">104031x</span>
+<span class="cline-any cline-yes">104031x</span>
+<span class="cline-any cline-yes">206805x</span>
+<span class="cline-any cline-yes">206805x</span>
+<span class="cline-any cline-yes">120828x</span>
+<span class="cline-any cline-yes">1110x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">206805x</span>
+<span class="cline-any cline-yes">103587x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104031x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1536x</span>
+<span class="cline-any cline-yes">1536x</span>
+<span class="cline-any cline-yes">33198x</span>
+<span class="cline-any cline-yes">7662x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1446x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23787x</span>
+<span class="cline-any cline-yes">23787x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">2220x</span>
+<span class="cline-any cline-yes">2220x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">427479x</span>
+<span class="cline-any cline-yes">427479x</span>
+<span class="cline-any cline-yes">427479x</span>
+<span class="cline-any cline-yes">845910x</span>
+<span class="cline-any cline-yes">845910x</span>
+<span class="cline-any cline-yes">357x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">845910x</span>
+<span class="cline-any cline-yes">427032x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">427479x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">447x</span>
+<span class="cline-any cline-yes">447x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-yes">666x</span>
+<span class="cline-any cline-yes">222x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23784x</span>
+<span class="cline-any cline-yes">23784x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">258516x</span>
+<span class="cline-any cline-yes">258516x</span>
+<span class="cline-any cline-yes">258516x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-yes">14362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-yes">158x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">156x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">149x</span>
+<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">139x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">139x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">81x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">74x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-yes">50x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">190x</span>
+<span class="cline-any cline-yes">184x</span>
+<span class="cline-any cline-yes">71x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-yes">113x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">396x</span>
+<span class="cline-any cline-yes">347x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">56x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">392x</span>
+<span class="cline-any cline-yes">75x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">72x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">324983x</span>
+<span class="cline-any cline-yes">324983x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">1061x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-yes">3883106x</span>
+<span class="cline-any cline-yes">1900319x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1982787x</span>
+<span class="cline-any cline-yes">1679182x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">303605x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">265x</span>
+<span class="cline-any cline-yes">1074x</span>
+<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-yes">188x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">126281x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2264696x</span>
+<span class="cline-any cline-yes">2261420x</span>
+<span class="cline-any cline-yes">2261420x</span>
+<span class="cline-any cline-yes">2261420x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3276x</span>
+<span class="cline-any cline-yes">3276x</span>
+<span class="cline-any cline-yes">3276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2264696x</span>
+<span class="cline-any cline-yes">3276x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2264696x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2264696x</span>
+<span class="cline-any cline-yes">503053x</span>
+<span class="cline-any cline-yes">503053x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">79032x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1421828x</span>
+<span class="cline-any cline-yes">1421464x</span>
+<span class="cline-any cline-yes">1421464x</span>
+<span class="cline-any cline-yes">1421464x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1421828x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1421828x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1421828x</span>
+<span class="cline-any cline-yes">306958x</span>
+<span class="cline-any cline-yes">306958x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">59x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-yes">53x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">83139x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1488988x</span>
+<span class="cline-any cline-yes">1486076x</span>
+<span class="cline-any cline-yes">1486076x</span>
+<span class="cline-any cline-yes">1486076x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2912x</span>
+<span class="cline-any cline-yes">2912x</span>
+<span class="cline-any cline-yes">2912x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1488988x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1488988x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1488988x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1488988x</span>
+<span class="cline-any cline-yes">118844x</span>
+<span class="cline-any cline-yes">118844x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">25197x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-yes">452284x</span>
+<span class="cline-any cline-yes">452284x</span>
+<span class="cline-any cline-yes">452284x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-yes">364x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-yes">452648x</span>
+<span class="cline-any cline-yes">70823x</span>
+<span class="cline-any cline-yes">70823x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">14356x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">258448x</span>
+<span class="cline-any cline-yes">11361x</span>
+<span class="cline-any cline-yes">11361x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7178x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-yes">64612x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">64612x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">129224x</span>
+<span class="cline-any cline-yes">3586x</span>
+<span class="cline-any cline-yes">3586x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">50247x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">904569x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">904568x</span>
+<span class="cline-any cline-yes">130166x</span>
+<span class="cline-any cline-yes">130166x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">174x</span>
+<span class="cline-any cline-yes">1578x</span>
+<span class="cline-any cline-yes">151x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">86x</span>
+<span class="cline-any cline-yes">754230x</span>
+<span class="cline-any cline-yes">70993x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">683237x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-yes">615540x</span>
+<span class="cline-any cline-yes">65221x</span>
+<span class="cline-any cline-yes">65221x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">193990x</span>
+<span class="cline-any cline-yes">193984x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Log from "../Util";
+import {IInsightFacade, InsightDataset, InsightDatasetKind, InsightError, NotFoundError} from "./IInsightFacade";
+import {JSZipObject} from "jszip";
+import Course from "../model/course";
+import CourseClass from "../model/class";
+import Dataset from "../model/dataset";
+import Room from "../model/room";
+import Building from "../model/building";
+import InstanceOfType from "../model/InstanceOfType";
+import Decimal from "decimal.js";
+import ApplyObject from "../model/ApplyObject";
+&nbsp;
+/**
+ * This is the main programmatic entry point for the project.
+ * Method documentation is in IInsightFacade
+ *
+ */
+// this is stupid
+&nbsp;
+export default class InsightFacade implements IInsightFacade {
+    public myDatasets = new Map&lt;string, Dataset&gt;();
+    public notSearching = true;
+    public queryingID = "";
+    public currentDataset: Dataset = null;
+    constructor() {
+        Log.trace("InsightFacadeImpl::init()");
+    }
+&nbsp;
+    public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise&lt;string[]&gt; {
+        let self = this;
+        if (id === undefined || id === null || id === "") {
+            return Promise.reject(new InsightError());
+        }
+        let buildingNames: string[] = [];
+        const parse5 = require("parse5");
+        const fs = require("fs-extra");
+        let JSZip = require("jszip");
+        if (self.myDatasets.has(id)) {
+            return Promise.reject(new InsightError());
+        }
+        let zip = new JSZip();
+        const promises: Array&lt;Promise&lt;string[]&gt;&gt; = [];
+        const fulfilledPromises: any[] = [];
+        return zip.loadAsync(content, {base64: true}).then(function () {
+            if (kind === InsightDatasetKind.Courses) {
+                zip.folder("courses").forEach(function (relativePath: string, file: JSZipObject) {
+                    promises.push(zip.file(file.name).async("text").then(function (res: string) {
+                        return self.parseJSON(res);
+                    }));
+                });
+            } else <span class="missing-if-branch" title="else path not taken" >E</span>if (kind === InsightDatasetKind.Rooms) {
+                promises.push(zip.file("index.htm").async("text").then(function (res: string) {
+                    const linkPromises: Array&lt;Promise&lt;string[]&gt;&gt; = [];
+                    let document = parse5.parse(res);
+                    let table = self.findNames(document, "tbody");
+                    let myLinks = self.parseLinks(table[0]);
+                    fs.ensureDirSync("./data/rooms");
+                    fs.ensureDirSync("./data/rooms/" + id);
+                    for (let link of myLinks) {
+                        linkPromises.push(zip.file(link.slice(2)).async("string").then(function (room: string) {
+                            let roomDoc = parse5.parse(room);
+                            let body = self.findNames(roomDoc, "body");
+                            let divs = self.getTableTag(body[0], "div");
+                            let node = self.makeHeader(divs, "building-info");
+                            let buildingInfo = self.makeHeader(node[0].childNodes, "field-content");
+                            fs.ensureFileSync("./data/rooms/" +  id + "/" + buildingInfo[0].childNodes[0].value);
+                            fs.writeFileSync("./data/rooms/" + id + "/" + buildingInfo[0].childNodes[0].value, room);
+                            let roomsTable = self.findNames(roomDoc, "tbody");
+                            try {
+                                let rows = self.getTableTag(roomsTable[0], "tr");
+                                return self.makeRoom(rows, buildingInfo);
+                            } catch (e) {
+                                return buildingInfo[0].childNodes[0].value;
+                            }
+                        }));
+                    }
+                    return Promise.all(linkPromises).then(function (res2: any) {
+                        return res2;
+                    });
+                }));
+            }
+            return Promise.all(promises).then((result: any[]) =&gt; {
+                if (InsightDatasetKind.Courses === kind) {
+                    for (let r of result) {
+                        if (r !== null) {
+                            fulfilledPromises.push(r);
+                        }
+                    }
+                    if (fulfilledPromises.length &lt; 1) {
+                        return new InsightError();
+                    }
+                    return self.createCourses(fulfilledPromises, fulfilledPromises.length, id, kind);
+                } else <span class="missing-if-branch" title="else path not taken" >E</span>if (InsightDatasetKind.Rooms === kind) {
+                    let dataset = new Dataset(id, kind);
+                    for (let b of result[0]) {
+                        if (typeof b !== "string") {
+                            let building = new Building(b);
+                            dataset.typeMap.set(building.instanceOfType[0].ROOMS_FULLNAME, building);
+                        } else {
+                            let building = new Building([]);
+                            dataset.typeMap.set(b, building);
+                        }
+                    }
+                    dataset.numRows = self.getRows(dataset);
+                    self.myDatasets.set(id, dataset);
+                    let myArrayOfID: string[] = [];
+                    self.myDatasets.forEach(function (value: Dataset, key: string) {
+                        myArrayOfID.push(key);
+                    });
+                    return myArrayOfID;
+                }
+            });
+        }).catch(function () {
+            return Promise.reject(new InsightError());
+        });
+    }
+    public getRows(dataset: Dataset) {
+        let acc = 0;
+        for (let building of dataset.typeMap.values()) {
+            acc += building.instanceOfType.length;
+        }
+        return acc;
+    }
+    public makeRoom(rows: any, buildingInfo: any[]): Promise&lt;any&gt; {
+        let self = this;
+        const promises: Array&lt;Promise&lt;{}&gt;&gt; = [];
+        for (let row of rows) {
+            let td = self.getTableTag(row, "td");
+            let room = new Room(td, buildingInfo);
+            promises.push(self.finalCourse(room));
+        }
+        return Promise.all(promises).then(function (res: any) {
+            return Promise.resolve(res);
+        });
+    }
+    public finalCourse(room: Room) {
+        return new Promise(function (resolve, reject) {
+            let address = room.ROOMS_ADDRESS;
+            let encodedAdress = encodeURI(address);
+            let url = "http://cs310.ugrad.cs.ubc.ca:11316/api/v1/project_n3e1b_p5b1b/" + encodedAdress;
+            let http = require("http");
+            return http.get(url, function (res: any) {
+                let rawData = "";
+                res.on("data", (chunk: any) =&gt; {
+                    rawData += chunk;
+                });
+                res.on("end", () =&gt; {
+                    try {
+                        const parsedData = JSON.parse(rawData);
+                        let lon: number = parsedData.lon;
+                        let lat: number = parsedData.lat;
+                        room.ROOMS_LAT = lat;
+                        room.ROOMS_LON = lon;
+                        resolve(room);
+                        return;
+                    } catch (e) {
+<span class="cstat-no" title="statement not covered" >                        reject(e);</span>
+                    }
+                });
+            });
+        });
+    }
+&nbsp;
+    public makeHeader(body: any, lookingFor: string) {
+        let self = this;
+        let ourArray: any[] = [];
+        for (let div of body) {
+            try {
+                for (let attr of div.attrs) {
+                    if (attr.value === lookingFor) {
+                        ourArray.push(div);
+                    }
+                }
+            } catch (e) {
+                //
+            }
+            if (div.childNodes !== undefined) {
+                ourArray = ourArray.concat(self.makeHeader(div.childNodes, lookingFor));
+            }
+        }
+        return ourArray;
+    }
+    public getTableTag(roomsTable: any, name: string) {
+        let tableRows: any[] = [];
+        for (let tableRow of roomsTable.childNodes) {
+            if (tableRow.nodeName === name) {
+                tableRows.push(tableRow);
+            }
+        }
+        return tableRows;
+    }
+    public parseJSON(res: string) {
+        try {
+            return JSON.parse(res);
+        } catch (e) {
+            return null;
+        }
+    }
+    public parseIndex(body: any, lookingFor: string, attr: number) {
+        for (let node of body.childNodes) {
+            try {
+                if (node.attrs[attr].value === lookingFor) {
+                    return node;
+                }
+            } catch (e) {
+                //
+            }
+        }
+    }
+    public findNames(body: any, lookingFor: string) {
+        let self = this;
+        let ourArray: any[] = [];
+        for (let node of body.childNodes) {
+            try {
+                if (node.nodeName === lookingFor) {
+                    ourArray.push(node);
+                }
+            } catch (e) {
+                //
+            }
+            if (node.childNodes !== undefined) {
+                ourArray = ourArray.concat(self.findNames(node, lookingFor));
+            }
+        }
+        return ourArray;
+    }
+    public parseLinks(table: any) {
+        let self = this;
+        let arrayOfLinks = [];
+        let lookingFor = "";
+        for (let node of table.childNodes) {
+            try {
+                if (node.nodeName === "tr") {
+                    if (lookingFor === "") {
+                        for (let n of node.childNodes) {
+                            if (n.nodeName === "td") {
+                                lookingFor = n.attrs[0].value;
+                            }
+                        }
+                    }
+                    let nameNode = self.parseIndex(node, lookingFor, 0);
+                    for (let a of nameNode.childNodes) {
+                        if (a.nodeName === "a") {
+                            arrayOfLinks.push(a.attrs[0].value);
+                        }
+                    }
+                }
+            } catch (e) {
+                // Do nothing
+            }
+        }
+        return arrayOfLinks;
+    }
+    public createCourses(result: any, size: number, id: string, kind: InsightDatasetKind) {
+        let self = this;
+        let myArrayOfID: string[] = [];
+        let newDataset = new Dataset(id, kind);
+        const fs = require("fs-extra");
+        for (let i = 0; i &lt; size; i++) {
+            // size is the number of courses (number of json files in zip)
+            // a course class is the overall course which has a name and contains instances of that course
+            try {
+                let nameOfCourse = (result[i].result[0].Subject + result[i].result[0].Course).toUpperCase();
+                let courseClass = new CourseClass(nameOfCourse);
+                for (let c of result[i].result) {
+                    try {
+                        let course = new Course(c);
+                        courseClass.instanceOfType.push(course);
+                    } catch (err) {
+                        //
+                    }
+                }
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (courseClass.instanceOfType.length &gt; 0) {
+                    // add the course to all the courses in our dataset
+                    fs.ensureDirSync("./data/courses/" + id);
+                    newDataset.typeMap.set(courseClass.courseName, courseClass);
+                    fs.ensureFileSync("./data/courses/" +  id + "/" + nameOfCourse);
+                    fs.writeFileSync("./data/courses/" + id + "/" + nameOfCourse, JSON.stringify(result[i].result));
+                    newDataset.numRows += courseClass.instanceOfType.length;
+                } else {
+                    //
+                }
+            } catch (err) {
+                //
+            }
+        }
+        // check if the course should be added (if it has at least one valid course)
+        if (newDataset.typeMap.size &lt; 1) {
+            throw new InsightError();
+        }
+        // add the dataset to all my current datasets
+        self.myDatasets.set(id, newDataset);
+        self.myDatasets.forEach(function (value: Dataset, key: string) {
+            myArrayOfID.push(key);
+        });
+        return myArrayOfID;
+    }
+&nbsp;
+    public removeDataset(id: string): Promise&lt;string&gt; {
+        // Required to remove from disk
+            // Required to remove from disk
+        let self = this;
+        const fs = require("fs-extra");
+        if (id === "" || id === null || id === undefined) {
+            return Promise.reject(new InsightError());
+        }
+        if (!self.myDatasets.has(id)) {
+            return Promise.reject(new NotFoundError());
+        }
+        if (self.myDatasets.get(id).kind === InsightDatasetKind.Courses) {
+            fs.removeSync("./data/courses/" + id);
+            self.myDatasets.delete(id);
+            return Promise.resolve(id);
+        } else <span class="missing-if-branch" title="else path not taken" >E</span>if (self.myDatasets.get(id).kind === InsightDatasetKind.Rooms) {
+            fs.removeSync("./data/rooms/" + id);
+            self.myDatasets.delete(id);
+            return Promise.resolve(id);
+        } else {
+<span class="cstat-no" title="statement not covered" >            return Promise.reject(new NotFoundError());</span>
+        }
+    }
+&nbsp;
+    public performQuery(query: any): Promise &lt;any[]&gt; {
+        let self = this;
+        if (query === null || query === undefined) {
+            return Promise.reject(new InsightError());
+        }
+        if ((Object.keys(query).length) === 3) {
+            if (!query.hasOwnProperty("TRANSFORMATIONS")) {
+                return Promise.reject(new InsightError());
+            }
+        }
+        if (query.hasOwnProperty("TRANSFORMATIONS")) {
+            if (!query.TRANSFORMATIONS.hasOwnProperty("GROUP") ||
+                !query.TRANSFORMATIONS.hasOwnProperty("APPLY")) {
+                return Promise.reject(new InsightError());
+            }
+        }
+        // Empty Options
+        if (!(query.hasOwnProperty("WHERE")) || !(query.hasOwnProperty("OPTIONS")) ||
+            !(query.OPTIONS.hasOwnProperty("COLUMNS"))) {
+            return Promise.reject(new InsightError());
+        }
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(query.OPTIONS).length === 0) {
+<span class="cstat-no" title="statement not covered" >            return Promise.reject(new InsightError());</span>
+        }
+        // Empty Columns
+        if (Object.keys(query.OPTIONS.COLUMNS).length === 0) {
+            return Promise.reject(new InsightError());
+        }
+        const columns = query.OPTIONS.COLUMNS;
+        const options = query.OPTIONS;
+        const order = query.OPTIONS.ORDER;
+        let arrOfApply: any[] = [];
+        if (query.hasOwnProperty("TRANSFORMATIONS")) {
+            for (let app of query.TRANSFORMATIONS.APPLY) {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (arrOfApply.includes(Object.keys(app)[0])) {
+<span class="cstat-no" title="statement not covered" >                    return Promise.reject(new InsightError());</span>
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(app)[0].includes("_")) {
+<span class="cstat-no" title="statement not covered" >                    return Promise.reject(new InsightError());</span>
+                }
+                arrOfApply.push(Object.keys(app)[0]);
+            }
+        }
+        if (order !== undefined) {
+            if (Object.keys(query.OPTIONS.ORDER).length === 0) {
+                return Promise.reject(new InsightError());
+            }
+        }
+        try {
+            if (query.hasOwnProperty("TRANSFORMATIONS")) {
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (query.TRANSFORMATIONS.hasOwnProperty("GROUP")) {
+                    let id = query.TRANSFORMATIONS.GROUP[0];
+                    self.queryingID = id.split("_")[0];
+                    self.currentDataset = self.myDatasets.get(self.queryingID);
+                } else {
+<span class="cstat-no" title="statement not covered" >                    return Promise.reject(new InsightError());</span>
+                }
+            } else {
+                let datasetID: string = query.OPTIONS.COLUMNS[0];
+                self.queryingID = datasetID.split("_")[0];
+                self.currentDataset = self.myDatasets.get(self.queryingID);
+            }
+            let where = query.WHERE;
+            let myDataset = self.myDatasets.get(self.queryingID);
+            let datasetRows = self.myDatasets.get(self.queryingID).numRows;
+            let res: any;
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (Object.keys(where).length === 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >datasetRows &lt; 5000)</span> {
+<span class="cstat-no" title="statement not covered" >                res = self.getAllFromDataset();</span>
+            } else {
+                res = self.search(where);
+            }
+            if (res.length === 0) {
+                return Promise.resolve([]);
+            }
+            let group: Map&lt;string, any[]&gt;;
+            let apply: any;
+            let sorted: any;
+            if (query.TRANSFORMATIONS !== undefined) {
+                group = self.doGrouping(query.TRANSFORMATIONS, res);
+                apply = self.doApply(group, query.TRANSFORMATIONS);
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (apply.includes(false)) {
+<span class="cstat-no" title="statement not covered" >                    return Promise.reject(new InsightError());</span>
+                }
+                // use the course to get info
+                let sortedNew;
+                if (query.OPTIONS.ORDER !== undefined) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (query.OPTIONS.ORDER.hasOwnProperty("keys")) {
+                        sortedNew = self.doSorting(apply, query.OPTIONS.ORDER, query.OPTIONS.ORDER.keys);
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        sortedNew = self.doSorting(apply, query.OPTIONS.ORDER, query.OPTIONS.ORDER);</span>
+                    }
+                } else {
+                    sortedNew = apply;
+                }
+                let finalResponse = self.doColumns(sortedNew, query.OPTIONS);
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (finalResponse.includes(false)) {
+<span class="cstat-no" title="statement not covered" >                    return Promise.reject(new InsightError());</span>
+                }
+                return Promise.resolve(finalResponse);
+            }
+            let finalRes = self.getCols(res as InstanceOfType[], query.OPTIONS);
+            if (finalRes.length &gt; 5000) {
+                return Promise.reject(new InsightError());
+            }
+            return Promise.resolve(finalRes);
+        } catch (error) {
+            return Promise.reject(new InsightError());
+        }
+    }
+    public doColumns(applyArray: ApplyObject[], options: any) {
+        let finalRes = [];
+        for (let instance of  applyArray) {
+            let courseFinal: {} = instance.getResponse(options.COLUMNS);
+            finalRes.push(JSON.parse(JSON.stringify(courseFinal)));
+        }
+        return finalRes;
+    }
+    // lol
+    public doSorting(applyMap: ApplyObject[], order: any, orderKeys: any) {
+        let self = this;
+        let id = self.queryingID;
+        let finalRes = [];
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (order !== undefined) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (order.keys.length === 0) {
+<span class="cstat-no" title="statement not covered" >                throw new InsightError();</span>
+            }
+        }
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (order.dir !== undefined) {
+            let orderDown: boolean;
+            if (order.dir === "UP") {
+                orderDown = true;
+            } else if (order.dir === "DOWN") {
+                orderDown = false;
+            } else  {
+                throw new InsightError();
+            }
+            // Sort
+            if (orderKeys[0].includes("_")) {
+                let order1: string;
+                for (let ord of applyMap[0].groupCriteria.keys()) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (orderKeys[0] === ord) {
+                        order1 = ord;
+                    }
+                }
+                applyMap.sort(function (a: ApplyObject, b: ApplyObject) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (a.groupCriteria.get(order1) !== b.groupCriteria.get(order1)) {
+                        if ((a.groupCriteria.get(order1) &lt; b.groupCriteria.get(order1)) === orderDown) {
+                            return -1;
+                        }
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if ((a.groupCriteria.get(order1) &gt; b.groupCriteria.get(order1) === orderDown)) {
+                            return 1;
+                        }
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        if (orderKeys.length &gt; 1) {</span>
+                            let newSorted = <span class="cstat-no" title="statement not covered" >self.doSorting([a, b], order, orderKeys.slice(1, ));</span>
+<span class="cstat-no" title="statement not covered" >                            if ((newSorted[0] === a)) {</span>
+<span class="cstat-no" title="statement not covered" >                                return -1;</span>
+                            } else {
+<span class="cstat-no" title="statement not covered" >                                return 1;</span>
+                            }
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            return 0;</span>
+                        }
+                    }
+                });
+            } else {
+                let order1: string;
+                for (let ord of applyMap[0].apply.keys()) {
+                    if (orderKeys[0] === ord) {
+                        order1 = ord;
+                    }
+                }
+                let key2423 = orderKeys[0];
+                for (let ord2 of applyMap[0].groupCriteria.keys()) {
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (orderKeys[0] === ord2) {
+<span class="cstat-no" title="statement not covered" >                        order1 = ord2;</span>
+                    }
+                }
+                applyMap.sort(function (a: ApplyObject, b: ApplyObject) {
+                    if (a.apply.get(order1) !== b.apply.get(order1)) {
+                        if ((a.apply.get(order1) &lt; b.apply.get(order1)) === orderDown) {
+                            return -1;
+                        }
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if ((a.apply.get(order1) &gt; b.apply.get(order1) === orderDown)) {
+                            return 1;
+                        }
+                    } else {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (orderKeys.length &gt; 1) {
+                            let newSorted = self.doSorting([a, b], order, orderKeys.slice(1, ));
+                            if ((newSorted[0] === a)) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            return 0;</span>
+                        }
+                    }
+                });
+            }
+        } else {
+<span class="cstat-no" title="statement not covered" >            if (order.includes("_")) {</span>
+<span class="cstat-no" title="statement not covered" >                applyMap.sort(<span class="fstat-no" title="function not covered" >function (</span>a: ApplyObject, b: ApplyObject) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (a.groupCriteria.get(order) &lt; b.groupCriteria.get(order)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return -1;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    if ((a.groupCriteria.get(order) &gt; b.groupCriteria.get(order))) {</span>
+<span class="cstat-no" title="statement not covered" >                        return 1;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    if ((a.groupCriteria.get(order) === b.groupCriteria.get(order))) {</span>
+<span class="cstat-no" title="statement not covered" >                        return 0;</span>
+                    }
+                });
+            } else {
+<span class="cstat-no" title="statement not covered" >                applyMap.sort(<span class="fstat-no" title="function not covered" >function (</span>a: ApplyObject, b: ApplyObject) {</span>
+<span class="cstat-no" title="statement not covered" >                    if (a.apply.get(order) &lt; b.apply.get(order)) {</span>
+<span class="cstat-no" title="statement not covered" >                        return -1;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    if ((a.apply.get(order) &gt; b.apply.get(order))) {</span>
+<span class="cstat-no" title="statement not covered" >                        return 1;</span>
+                    }
+<span class="cstat-no" title="statement not covered" >                    if ((a.apply.get(order) === b.apply.get(order))) {</span>
+<span class="cstat-no" title="statement not covered" >                        return 0;</span>
+                    }
+                });
+            }
+        }
+        return applyMap;
+    }
+    public doGrouping(transformation: any, res: any[]) {
+        let self = this;
+        let id = self.queryingID;
+        let attributes = [id + "_dept", id + "_id", id + "_instructor", id + "_title", id + "_pass"];
+        attributes.push(id + "_fail", id + "_audit", id + "_uuid", id + "_year", id + "_avg");
+        attributes.push(id + "_fullname", id + "_shortname", id + "_number", id + "_name");
+        attributes.push(id + "_address", id + "_lat", id + "_lon", id + "_seats", id + "_type");
+        attributes.push(id + "_furniture", id + "_href");
+        let groups = new Map&lt;string, any[]&gt;();
+        let group = transformation.GROUP;
+        if (self.currentDataset.kind === InsightDatasetKind.Rooms) {
+            for (let room of res as Room[]) {
+                let values: any[] = [];
+                for (let grouping of group) {
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (!attributes.includes(grouping.toLowerCase())) {
+<span class="cstat-no" title="statement not covered" >                        throw new InsightError();</span>
+                    }
+                    grouping = grouping.toUpperCase();
+                    values.push(room[grouping as keyof Room]);
+                }
+                let keys = values.toString();
+                if (groups.has(keys)) {
+                    groups.get(keys).push(room);
+                } else {
+                    groups.set(keys, [room]);
+                }
+            }
+        } else {
+            for (let room of res as Course[]) {
+                let values: any[] = [];
+                for (let grouping of group) {
+                    grouping = grouping.toUpperCase();
+                    values.push(room[grouping as keyof Course]);
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (!attributes.includes(grouping.toLowerCase())) {
+<span class="cstat-no" title="statement not covered" >                        throw new InsightError();</span>
+                    }
+                }
+                let keys = values.toString();
+                if (groups.has(keys)) {
+                    groups.get(keys).push(room);
+                } else {
+                    groups.set(keys, [room]);
+                }
+            }
+        }
+        return groups;
+    }
+    public doApply(groups: Map&lt;string, any[]&gt;, trans: any): any {
+        let self = this;
+        let response: any[] = [];
+        let dataset = self.currentDataset;
+        let count = 0;
+        for (let apply of trans.APPLY) {
+            let overallResponse: any[] = [];
+            let vals = Object.values(apply);
+            let keyLookingArray =  Object.values(vals[0]);
+            let operationInArray =  Object.keys(vals[0]);
+            let operation = operationInArray[0];
+            let keyLookingForInObject = keyLookingArray[0];
+            let keyFromApplyArray = Object.keys(apply);
+            let keyFromApply = keyFromApplyArray[0];
+            groups.forEach(function (value: any[], key: string, map: Map&lt;string, any[]&gt;) {
+                switch (operation) {
+                    case "MAX": {
+                        let currentMax = -10000000;
+                        for (let room of value) {
+                            let val;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (dataset.kind === InsightDatasetKind.Rooms) {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Room];
+                            } else {
+                                let thisKey = (<span class="cstat-no" title="statement not covered" >keyLookingForInObject as string).toUpperCase();</span>
+<span class="cstat-no" title="statement not covered" >                                val = room[thisKey as keyof Course];</span>
+                            }
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof val !== "number" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_SEATS"</span>
+                                &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_LAT" </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                                keyLookingForInObject.toUpperCase() !== "ROOMS_LON")</span> {
+<span class="cstat-no" title="statement not covered" >                                response.push(false);</span>
+                            }
+                            if (Number(val) &gt; currentMax) {
+                                currentMax = Number(val);
+                            }
+                        }
+                        // value[0].newCols()
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (count === 0) {
+                            let newObject = new ApplyObject(value[0], keyFromApply, trans.GROUP, currentMax,
+                                dataset.kind);
+                            response.push(newObject);
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            for (let applyOf of response) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (applyOf.objectTo === value[0]) {</span>
+<span class="cstat-no" title="statement not covered" >                                    applyOf.apply.set(keyFromApply, currentMax);</span>
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case "MIN" : {
+                        let currentMin = 1000000000000000;
+                        for (let room of value) {
+                            let val;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (dataset.kind === InsightDatasetKind.Rooms) {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Room];
+                            } else {
+                                let thisKey = (<span class="cstat-no" title="statement not covered" >keyLookingForInObject as string).toUpperCase();</span>
+<span class="cstat-no" title="statement not covered" >                                val = room[thisKey as keyof Course];</span>
+                            }
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof val !== "number" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_SEATS"</span>
+                                &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_LAT" </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                                keyLookingForInObject.toUpperCase() !== "ROOMS_LON")</span> {
+<span class="cstat-no" title="statement not covered" >                                response.push(false);</span>
+                            }
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (Number(val) &lt; currentMin) {
+                                currentMin = Number(val);
+                            }
+                        }
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (count === 0) {
+                            let newObject = new ApplyObject(value[0], keyFromApply, trans.GROUP, currentMin,
+                                dataset.kind);
+                            response.push(newObject);
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            for (let applyOf of response) {</span>
+<span class="cstat-no" title="statement not covered" >                                if (applyOf.objectTo === value[0]) {</span>
+<span class="cstat-no" title="statement not covered" >                                    applyOf.apply.set(keyFromApply, currentMin);</span>
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case "SUM": {
+                        let currentSum = 0;
+                        for (let room of value) {
+                            let val;
+                            if (dataset.kind === InsightDatasetKind.Rooms) {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Room];
+                            } else {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Course];
+                            }
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof val !== "number" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_SEATS"</span>
+                                &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_LAT" </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                                keyLookingForInObject.toUpperCase() !== "ROOMS_LON")</span> {
+<span class="cstat-no" title="statement not covered" >                                response.push(false);</span>
+                            }
+                            currentSum += Number(val);
+                        }
+                        if (count === 0) {
+                            let newObject = new ApplyObject(value[0], keyFromApply, trans.GROUP,
+                                Number(currentSum.toFixed(2)), dataset.kind);
+                            response.push(newObject);
+                        } else {
+                            for (let applyOf of response) {
+                                <span class="missing-if-branch" title="else path not taken" >E</span>if (applyOf.objectTo === value[0]) {
+                                    applyOf.apply.set(keyFromApply, Number(currentSum.toFixed(2)));
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case "COUNT": {
+                        // response.push(value.length);
+                        let currentArray: any[] = [];
+                        let currentCount = 0;
+                        for (let room of value) {
+                            let val;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (dataset.kind === InsightDatasetKind.Rooms) {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Room];
+                            } else {
+                                let thisKey = (<span class="cstat-no" title="statement not covered" >keyLookingForInObject as string).toUpperCase();</span>
+<span class="cstat-no" title="statement not covered" >                                val = room[thisKey as keyof Course];</span>
+                            }
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (!(currentArray.includes(val))) {
+                                currentCount++;
+                                currentArray.push(val);
+                            }
+                        }
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (count === 0) {
+                            let newObject = <span class="cstat-no" title="statement not covered" >new ApplyObject(value[0], keyFromApply, trans.GROUP, currentCount,</span>
+                                dataset.kind);
+<span class="cstat-no" title="statement not covered" >                            response.push(newObject);</span>
+                        } else {
+                            for (let applyOf of response) {
+                                <span class="missing-if-branch" title="else path not taken" >E</span>if (applyOf.objectTo === value[0]) {
+                                    applyOf.apply.set(keyFromApply, currentCount);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case "AVG": {
+                        let total = new Decimal(0);
+                        for (let room of value) {
+                            let val;
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (dataset.kind === InsightDatasetKind.Rooms) {
+                                let thisKey = (keyLookingForInObject as string).toUpperCase();
+                                val = room[thisKey as keyof Room];
+                            } else {
+                                let thisKey = (<span class="cstat-no" title="statement not covered" >keyLookingForInObject as string).toUpperCase();</span>
+<span class="cstat-no" title="statement not covered" >                                val = room[thisKey as keyof Course];</span>
+                            }
+                            <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof val !== "number" &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_SEATS"</span>
+                                &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >keyLookingForInObject.toUpperCase() !== "ROOMS_LAT" </span>&amp;&amp;
+<span class="branch-3 cbranch-no" title="branch not covered" >                                keyLookingForInObject.toUpperCase() !== "ROOMS_LON")</span> {
+<span class="cstat-no" title="statement not covered" >                                response.push(false);</span>
+                            }
+                            total = Decimal.add(total, new Decimal(val));
+                        }
+                        let average = total.toNumber() / value.length;
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (count === 0) {
+                            let newObject = <span class="cstat-no" title="statement not covered" >new ApplyObject(value[0], keyFromApply, trans.GROUP,</span>
+                                Number(average.toFixed(2)), dataset.kind);
+<span class="cstat-no" title="statement not covered" >                            response.push(newObject);</span>
+                        } else {
+                            for (let applyOf of response) {
+                                <span class="missing-if-branch" title="else path not taken" >E</span>if (applyOf.objectTo === value[0]) {
+                                    applyOf.apply.set(keyFromApply, Number(average.toFixed(2)));
+                                }
+                            }
+                        }
+                        break;
+                    } <span class="branch-5 cbranch-no" title="branch not covered" >default: {</span>
+<span class="cstat-no" title="statement not covered" >                        throw new InsightError();</span>
+                }
+                }
+            });
+            count++;
+        }
+        return response;
+    }
+    public <span class="fstat-no" title="function not covered" >getAllFromDataset</span>() {
+        let self = <span class="cstat-no" title="statement not covered" >this;</span>
+        let result: InstanceOfType[] = <span class="cstat-no" title="statement not covered" >[];</span>
+        let dataset = <span class="cstat-no" title="statement not covered" >self.myDatasets.get(self.queryingID);</span>
+<span class="cstat-no" title="statement not covered" >        for (let typeIn of dataset.typeMap.values()) {</span>
+<span class="cstat-no" title="statement not covered" >            for (let instance of typeIn.instanceOfType) {</span>
+<span class="cstat-no" title="statement not covered" >                result.push(instance);</span>
+            }
+        }
+<span class="cstat-no" title="statement not covered" >        return result;</span>
+    }
+    public getCols(allCourses: InstanceOfType[], options: any) {
+        let self = this;
+        let allInstances;
+        let id = self.myDatasets.get(self.queryingID);
+        if (id.kind === InsightDatasetKind.Courses) {
+            allInstances = allCourses as Course[];
+            // let courses: Course[] = courses1;
+        } else {
+            allInstances = allCourses as Room[];
+        }
+        let finalRes: any[] = [];
+        let columns = options.COLUMNS;
+        if (options.ORDER !== undefined) {
+            allInstances = this.getFilter(allInstances, options.ORDER, options.ORDER.keys);
+        }
+        if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+            for (let instance of (allInstances as Course[])) {
+                let courseFinal = instance.getCourseResponse(columns);
+                finalRes.push(JSON.parse(JSON.stringify(courseFinal)));
+            }
+        }
+        if (self.currentDataset.kind === InsightDatasetKind.Rooms) {
+            for (let instance of (allInstances as Room[])) {
+                let courseFinal = instance.getCourseResponse(columns);
+                finalRes.push(JSON.parse(JSON.stringify(courseFinal)));
+            }
+        }
+        return finalRes;
+    }
+    public getFilter(coursesOriginal: InstanceOfType[], order1: any | any, orderKeys: any) {
+        let self = this;
+        let id = self.queryingID;
+        let numericalOrder = [id + "_avg", id + "_pass", id + "_fail", id + "_audit", id + "_year"];
+        numericalOrder.push(id + "_dept", id + "_instructor", id + "_uuid", id + "_title", id + "_id");
+        numericalOrder.push(id + "_lat", id + "_lon", id + "_seats");
+        numericalOrder.push(id + "_fullname", id + "_shortname", id + "_number", id + "_name");
+        numericalOrder.push(id + "_address", id + "_type", id + "_furniture", id + "_href");
+        if (order1.dir === undefined) {
+            for (let filter of numericalOrder) {
+                if (order1 === filter) {
+                    if (self.currentDataset.kind === InsightDatasetKind.Rooms) {
+                        return self.getFilterRooms(coursesOriginal, order1, orderKeys);
+                    }
+                    let order3 = "courses_" + order1.split("_")[1];
+                    let order2: any = order3.toUpperCase();
+                    let order: (keyof Course) = order2;
+                    coursesOriginal.sort(function (a: Course, b: Course): number {
+                        if (a[order] &lt; b[order]) {
+                            return -1;
+                        }
+                        if (a[order] &gt; b[order]) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                }
+            }
+        } else {
+            let orderDown: boolean;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (order1.dir !== "DOWN") {
+                orderDown = true;
+            } else {
+<span class="cstat-no" title="statement not covered" >                orderDown = false;</span>
+            }
+            if (self.currentDataset.kind === InsightDatasetKind.Rooms) {
+                return self.getFilterRooms(coursesOriginal, order1, orderKeys);
+            }
+            let order1Key = orderKeys[0];
+            let order3 = "courses_" + order1Key.split("_")[1];
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!numericalOrder.includes(order3)) {
+<span class="cstat-no" title="statement not covered" >                throw new InsightError();</span>
+            }
+            let order2: any = order3.toUpperCase();
+            let order: (keyof Course) = order2;
+            coursesOriginal.sort(function (a: Course, b: Course): number {
+                if (a[order] !== b[order]) {
+                    if ((a[order] &lt; b[order]) === orderDown) {
+                        return -1;
+                    }
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if ((a[order] &gt; b[order]) === orderDown) {
+                        return 1;
+                    }
+                } else {
+                    if (orderKeys.length &gt; 1) {
+                        let newSorted = self.getFilter([a, b], order1, orderKeys.slice(1, ));
+                        if ((newSorted[0] === a)) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+            return coursesOriginal;
+        }
+        return coursesOriginal;
+    }
+    public getFilterRooms(coursesOriginal: InstanceOfType[], order1: string | any, orderKeys: any) {
+        let self = this;
+        coursesOriginal = coursesOriginal as Room[];
+        if (order1.dir === undefined) {
+            let order3 = "rooms_" + order1.split("_")[1];
+            let order2: any = order3.toUpperCase();
+            let order: (keyof Room) = order2;
+            coursesOriginal.sort(function (a: Room, b: Room): number {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (a[order] &lt; b[order]) {
+<span class="cstat-no" title="statement not covered" >                    return -1;</span>
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (a[order] &gt; b[order]) {
+<span class="cstat-no" title="statement not covered" >                    return 1;</span>
+                }
+                return 0;
+            });
+            return coursesOriginal;
+        } else {
+            let orderDown: boolean;
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (order1.dir !== "DOWN") {
+                orderDown = true;
+            } else {
+<span class="cstat-no" title="statement not covered" >                orderDown = false;</span>
+            }
+            let order3 = "rooms_" + orderKeys[0].split("_")[1];
+            let order2: any = order3.toUpperCase();
+            let order: (keyof Room) = order2;
+            coursesOriginal.sort(function (a: Room, b: Room): number {
+                if (a[order] !== b[order]) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if ((a[order] &lt; b[order]) === orderDown) {
+                        return -1;
+                    }
+<span class="cstat-no" title="statement not covered" >                    if ((a[order] &gt; b[order]) === orderDown) {</span>
+<span class="cstat-no" title="statement not covered" >                        return 1;</span>
+                    }
+                } else {
+                    if (orderKeys.length &gt; 1) {
+                        let newSorted = self.getFilterRooms([a, b], order1, orderKeys.slice(1, ));
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if ((newSorted[0] === a)) {
+                            return -1;
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            return 1;</span>
+                        }
+                    } else {
+                        return 0;
+                    }
+                }
+                // Hello
+            });
+            return coursesOriginal;
+        }
+    }
+    // You &amp;&amp; with the recursive functions where each recursive function returns just the math of the comparator
+    public search(where: any) {
+        let self = this;
+        let myArrayOfLogic = ["AND", "OR", "GT", "EQ", "LT", "IS", "NOT"];
+        let myArrayCompartor = ["LT", "GT", "EQ", "IS", "NOT"];
+        let onlyLogic = ["AND", "OR"];
+        for (let l of myArrayOfLogic) {
+            if (where[l] !== undefined) {
+                if (onlyLogic.includes(l)) {
+                    // It's logical
+                    switch (l) {
+                        case "AND": {
+                            return self.withAnd(where[l]);
+                        }
+                        case "OR": {
+                            return self.withOr(where[l]);
+                        }
+                    }
+                } else {
+                    // you return the search
+                    for (let c in myArrayCompartor) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (myArrayCompartor.includes(l)) {
+                            switch (l) {
+                                case "LT": {
+                                    return self.searchLT(where[l]);
+                                }
+                                case "GT": {
+                                    return self.searchGT(where[l]);
+                                }
+                                case "EQ": {
+                                    return self.searchEQ(where[l]);
+                                }
+                                case "IS": {
+                                    return self.searchIS(where[l]);
+                                }
+                                case "NOT": {
+                                    return self.searchNOT(where[l]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public searchNOT(withNOT: any): InstanceOfType[] {
+        let self = this;
+        self.notSearching = !self.notSearching;
+        let notArray =  self.search(withNOT);
+        self.notSearching = true;
+        return notArray as InstanceOfType[];
+    }
+    public searchGT(attr: any) {
+        let self = this;
+        let otherID: string;
+        if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+            otherID = "courses";
+        } else {
+            otherID = "rooms";
+        }
+        let returnCourses: InstanceOfType[] = [];
+        // lookingFor[0] contains the course_avg or whatever and lookingFor[1] contains the value 98
+        let lookingFor = self.searchAttribute(attr);
+        let myStringKey = otherID + "_" + lookingFor[0].split("_")[1];
+        let mKey: any = myStringKey.toUpperCase();
+        let otherKey = mKey as (keyof Course | keyof Room);
+        if ((typeof lookingFor[1]) !== "number") {
+            return new InsightError();
+        }
+        let dataset = self.myDatasets.get(self.queryingID);
+        for (let typeIn of dataset.typeMap.values()) {
+            for (let instance of typeIn.instanceOfType) {
+                let comp;
+                if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                    instance = instance as Course;
+                    otherKey = otherKey as (keyof Course);
+                    comp = instance[otherKey];
+                } else {
+                    instance = instance as Room;
+                    otherKey = otherKey as (keyof Room);
+                    comp = instance[otherKey];
+                }
+                if (otherKey === "ROOMS_SEATS") {
+                    comp = Number(comp);
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "number")) {
+<span class="cstat-no" title="statement not covered" >                    return new InsightError();</span>
+                }
+                if ((comp &gt; lookingFor[1]) === self.notSearching) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                        returnCourses.push(instance);
+                    }
+                }
+            }
+        }
+        return returnCourses;
+    }
+    public searchLT(attr: any) {
+        let self = this;
+        let otherID: string;
+        if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+            otherID = "courses";
+        } else {
+            otherID = "rooms";
+        }
+        let id = self.queryingID;
+        // return attr;
+        // let returnCourses: Array&lt;[string, string]&gt; = [];
+        let returnCourses: InstanceOfType[] = [];
+        // lookingFor[0] contains the course_avg or whatever and lookingFor[1] contains the value 98
+        let lookingFor = self.searchAttribute(attr);
+        let myStringKey = otherID + "_" + lookingFor[0].split("_")[1];
+        let mKey: any = myStringKey.toUpperCase();
+        let otherKey: (keyof Course | keyof Room) = mKey;
+        if ((typeof lookingFor[1]) !== "number") {
+            return new InsightError();
+        }
+        let dataset = self.myDatasets.get(self.queryingID);
+        for (let courseClass of dataset.typeMap.values()) {
+            for (let instance of courseClass.instanceOfType) {
+                let comp;
+                if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                    instance = instance as Course;
+                    otherKey = otherKey as (keyof Course);
+                    comp = instance[otherKey];
+                } else {
+                    instance = instance as Room;
+                    otherKey = otherKey as (keyof Room);
+                    comp = instance[otherKey];
+                }
+                if (otherKey === "ROOMS_SEATS") {
+                    comp = Number(comp);
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "number")) {
+<span class="cstat-no" title="statement not covered" >                    return new InsightError();</span>
+                }
+                if ((comp &lt; lookingFor[1]) === self.notSearching) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                        returnCourses.push(instance);
+                    }
+                }
+            }
+        }
+        return returnCourses;
+    }
+    public searchIS(attr: any) {
+        let self = this;
+        let otherID: string;
+        if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+            otherID = "courses";
+        } else {
+            otherID = "rooms";
+        }
+        let id = self.queryingID;
+        // return attr;
+        // let returnCourses: Array&lt;[string, string]&gt; = [];
+        let returnCourses: InstanceOfType[] = [];
+        // lookingFor[0] contains the course_avg or whatever and lookingFor[1] contains the value 98
+        let lookingFor = self.searchAttribute(attr);
+        let myStringKey = otherID + "_" + lookingFor[0].split("_")[1];
+        let keyId = "COURSES";
+        let mKey: any = myStringKey.toUpperCase();
+        let otherKey: (keyof Course | keyof Room) = mKey;
+        if (otherKey !== keyId + "_ID" &amp;&amp; otherKey !== keyId + "_UUID") {
+            if (!isNaN(lookingFor[1]) &amp;&amp; lookingFor[1] !== "") {
+                return new InsightError();
+            }
+        }
+        let dataset = self.myDatasets.get(id);
+        let searchingFor: string = lookingFor[1];
+        if (searchingFor.includes("*")) {
+            return self.isRegex(searchingFor, otherKey, dataset, returnCourses);
+        }
+        for (let courseClass of dataset.typeMap.values()) {
+            for (let instance of courseClass.instanceOfType) {
+                let comp;
+                if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                    instance = instance as Course;
+                    otherKey = otherKey as (keyof Course);
+                    comp = instance[otherKey];
+                } else {
+                    instance = instance as Room;
+                    otherKey = otherKey as (keyof Room);
+                    comp = instance[otherKey];
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "string") &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >otherKey !== keyId + "_UUID")</span> {
+<span class="cstat-no" title="statement not covered" >                    return new InsightError();</span>
+                }
+                let courseString: string;
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (otherKey === keyId + "_UUID") {
+<span class="cstat-no" title="statement not covered" >                    courseString = comp.toString();</span>
+                } else {
+                    courseString = (comp as string);
+                }
+                if (((courseString === lookingFor[1])) === self.notSearching) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                        returnCourses.push(instance);
+                    }
+                }
+            }
+        }
+        return returnCourses;
+    }
+    public isRegex(myString: string, otherKey: (keyof Course | keyof Room), dataset: Dataset,
+                   returnCourses: InstanceOfType[]) {
+        let self = this;
+        let id = self.queryingID;
+        let keyId = id.toUpperCase();
+        let beforeAndAfter: string[] = myString.split("*");
+        if (beforeAndAfter.length === 2) {
+            if (beforeAndAfter[0] === "") {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (beforeAndAfter.length &gt; 2) {
+<span class="cstat-no" title="statement not covered" >                    return new InsightError();</span>
+                }
+                let chars = beforeAndAfter[1].length;
+                for (let courseClass of dataset.typeMap.values()) {
+                    for (let instance of courseClass.instanceOfType) {
+                        let comp;
+                        if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                            instance = instance as Course;
+                            otherKey = otherKey as (keyof Course);
+                            comp = instance[otherKey];
+                        } else {
+                            instance = instance as Room;
+                            otherKey = otherKey as (keyof Room);
+                            comp = instance[otherKey];
+                        }
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "string") &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >otherKey !== keyId + "_UUID")</span> {
+<span class="cstat-no" title="statement not covered" >                            return new InsightError();</span>
+                        }
+                        let courseString: string;
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (otherKey === keyId + "_UUID") {
+<span class="cstat-no" title="statement not covered" >                            courseString = comp.toString();</span>
+                        } else {
+                            courseString = (comp as string);
+                        }
+                        let len = courseString.length;
+                        if ((courseString.includes(beforeAndAfter[1], len - chars) === self.notSearching)) {
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                                returnCourses.push(instance);
+                            }
+                        }
+                    }
+                }
+            } else if (beforeAndAfter[1] === "") {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (beforeAndAfter.length &gt; 2) {
+<span class="cstat-no" title="statement not covered" >                    return new InsightError();</span>
+                }
+                let chars = beforeAndAfter[0].length;
+                for (let courseClass of dataset.typeMap.values()) {
+                    for (let instance of courseClass.instanceOfType) {
+                        let comp;
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                            instance = instance as Course;
+                            otherKey = otherKey as (keyof Course);
+                            comp = instance[otherKey];
+                        } else {
+<span class="cstat-no" title="statement not covered" >                            instance = instance as Room;</span>
+<span class="cstat-no" title="statement not covered" >                            otherKey = otherKey as (keyof Room);</span>
+<span class="cstat-no" title="statement not covered" >                            comp = instance[otherKey];</span>
+                        }
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "string") &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >otherKey !== keyId + "_UUID")</span> {
+<span class="cstat-no" title="statement not covered" >                            return new InsightError();</span>
+                        }
+                        let courseString: string;
+                        <span class="missing-if-branch" title="if path not taken" >I</span>if (otherKey === keyId + "_UUID") {
+<span class="cstat-no" title="statement not covered" >                            courseString = comp.toString();</span>
+                        } else {
+                            courseString = (comp as string);
+                        }
+                        if (((courseString.substring(0, chars)) === beforeAndAfter[0]) === self.notSearching) {
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                                returnCourses.push(instance);
+                            }
+                        }
+                    }
+                }
+            } else {
+                return new InsightError();
+            }
+        } else if (beforeAndAfter.length === 3 &amp;&amp; beforeAndAfter[0] === "" &amp;&amp; beforeAndAfter[2] === "") {
+            for (let courseClass of dataset.typeMap.values()) {
+                for (let instance of courseClass.instanceOfType) {
+                    let comp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                        instance = instance as Course;
+                        otherKey = otherKey as (keyof Course);
+                        comp = instance[otherKey];
+                    } else {
+<span class="cstat-no" title="statement not covered" >                        instance = instance as Room;</span>
+<span class="cstat-no" title="statement not covered" >                        otherKey = otherKey as (keyof Room);</span>
+<span class="cstat-no" title="statement not covered" >                        comp = instance[otherKey];</span>
+                    }
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (!(typeof comp === "string") &amp;&amp; otherKey !== keyId + "_UUID") {
+<span class="cstat-no" title="statement not covered" >                        return new InsightError();</span>
+                    }
+                    let courseString: string;
+                    if (otherKey === keyId + "_UUID") {
+                        courseString = comp.toString();
+                    } else {
+                        courseString = (comp as string);
+                    }
+                    if (((courseString.includes(beforeAndAfter[1]) === self.notSearching))) {
+                        <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                            returnCourses.push(instance);
+                        }
+                    }
+                }
+            }
+        } else {
+            return new InsightError();
+        }
+        return returnCourses;
+    }
+    public searchEQ(attr: any) {
+        let self = this;
+        let otherID: string;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+            otherID = "courses";
+        } else {
+<span class="cstat-no" title="statement not covered" >            otherID = "rooms";</span>
+        }
+        let id = self.queryingID;
+        // return attr;
+        // let returnCourses: Array&lt;[string, string]&gt; = [];
+        let returnCourses: InstanceOfType[] = [];
+        // lookingFor[0] contains the course_avg or whatever and lookingFor[1] contains the value 98
+        let lookingFor = self.searchAttribute(attr);
+        let myStringKey = otherID + "_" + lookingFor[0].split("_")[1];
+        let mKey: any = myStringKey.toUpperCase();
+        let otherKey: (keyof Course | keyof Room) = mKey;
+        if ((typeof lookingFor[1]) !== "number") {
+            return new InsightError();
+        }
+        let dataset = self.myDatasets.get(self.queryingID);
+        for (let courseClass of dataset.typeMap.values()) {
+            for (let instance of courseClass.instanceOfType) {
+                let comp;
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (self.currentDataset.kind === InsightDatasetKind.Courses) {
+                    instance = instance as Course;
+                    otherKey = otherKey as (keyof Course);
+                    comp = instance[otherKey];
+                } else {
+<span class="cstat-no" title="statement not covered" >                    instance = instance as Room;</span>
+<span class="cstat-no" title="statement not covered" >                    otherKey = otherKey as (keyof Room);</span>
+<span class="cstat-no" title="statement not covered" >                    comp = instance[otherKey];</span>
+                }
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (otherKey === "ROOMS_SEATS") {
+<span class="cstat-no" title="statement not covered" >                    comp = Number(comp);</span>
+                }
+                if (!(typeof comp === "number")) {
+                    return new InsightError();
+                }
+                if ((comp === lookingFor[1]) === self.notSearching) {
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if (!returnCourses.includes(instance)) {
+                        returnCourses.push(instance);
+                    }
+                }
+            }
+        }
+        return returnCourses;
+    }
+    public searchAttribute(attr: any) {
+        let self = this;
+        let id = self.queryingID;
+        let attributes = [id + "_dept", id + "_id", id + "_instructor", id + "_title", id + "_pass"];
+        attributes.push(id + "_fail", id + "_audit", id + "_uuid", id + "_year", id + "_avg");
+        attributes.push(id + "_fullname", id + "_shortname", id + "_number", id + "_name");
+        attributes.push(id + "_address", id + "_lat", id + "_lon", id + "_seats", id + "_type");
+        attributes.push(id + "_furniture", id + "_href");
+        for (let a of attributes) {
+            if (attr[a] !== undefined) {
+                return [a, attr[a]];
+            }
+        }
+    }
+    public withAnd(withinAnd: any[]) {
+        if (withinAnd.length &lt; 1) {
+            return new InsightError();
+        }
+        let self = this;
+        let myCount = new Map&lt;InstanceOfType, number&gt;();
+        let otherArray: any[] = [];
+        let andArray: InstanceOfType[] = [];
+        for (let member of withinAnd) {
+            otherArray.push(self.search(member));
+        }
+        for (let member of otherArray) {
+            for (let name of member) {
+                if (myCount.has(name)) {
+                    myCount.set(name, myCount.get(name) + 1);
+                } else {
+                    myCount.set(name, 1);
+                }
+            }
+        }
+        myCount.forEach(function (value: number, key: InstanceOfType, map: Map&lt;InstanceOfType, number&gt;) {
+            if (value === otherArray.length) {
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (!andArray.includes(key)) {
+                    andArray.push(key);
+                }
+            }
+        });
+        return andArray;
+    }
+    public withOr(withinOR: any[]) {
+        if (withinOR.length &lt; 1) {
+            return new InsightError();
+        }
+        let self = this;
+        let otherArray: any = [];
+        let orArray: InstanceOfType[] = [];
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (withinOR.length === 0) {
+<span class="cstat-no" title="statement not covered" >            return new InsightError();</span>
+        }
+        for (let member of withinOR) {
+            otherArray.push(self.search(member));
+        }
+        for (let member of otherArray) {
+            for (let name of member) {
+                if (!orArray.includes(name)) {
+                    orArray.push(name);
+                }
+            }
+        }
+        return orArray;
+    }
+&nbsp;
+    public listDatasets(): Promise&lt;InsightDataset[]&gt; {
+        let thisArray: InsightDataset[] = [];
+        this.myDatasets.forEach(function (value: Dataset, key: string) {
+            let dataset: InsightDataset = {
+                id: key,
+                kind: value.kind,
+                numRows: value.numRows,
+            };
+            thisArray.push(dataset);
+        });
+        Log.test("lol");
+        Log.trace("lol");
+        Log.info("lol");
+        Log.error("lol");
+        Log.warn("lol");
+        return Promise.resolve(thisArray);
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 16 2018 17:40:01 GMT-0800 (PST)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

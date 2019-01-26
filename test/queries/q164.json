@@ -1,0 +1,42 @@
+{
+    "title": "courses stuff",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "econ"
+                    }
+                },
+                {
+                    "LT": {
+                        "courses_avg": 62
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "sumCount"
+            ]
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "courses_dept"
+            ],
+            "APPLY": [
+                {
+                    "sumCount": {
+                        "SUM": "courses_fail"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": true,
+
+    "result": [
+        {"courses_dept":"econ","sumCount":100}
+    ]
+}

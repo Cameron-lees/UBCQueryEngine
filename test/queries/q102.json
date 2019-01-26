@@ -1,0 +1,20 @@
+{
+    "title": "GT Key Empty",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "" : 0
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Cannot have an empty GT key"
+}

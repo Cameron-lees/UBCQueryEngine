@@ -1,0 +1,36 @@
+{
+    "title": "Simple rooms 2 keys",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_furniture": "Classroom-Movable Tables & Chairs"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_shortname",
+                "rooms_seats"
+            ],
+            "ORDER": {
+                "dir": "UP",
+                "keys": [
+                    "rooms_shortname",
+                    "rooms_seats"
+                ]
+            }
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {"rooms_shortname":"IBLC","rooms_seats":112},{"rooms_shortname":"OSBO","rooms_seats":442},{"rooms_shortname":"SRC","rooms_seats":299},{"rooms_shortname":"SRC","rooms_seats":299},{"rooms_shortname":"SRC","rooms_seats":299}
+    ]
+}

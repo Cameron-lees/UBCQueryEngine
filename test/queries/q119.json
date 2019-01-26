@@ -1,0 +1,40 @@
+{
+    "title": "Invalid Nested Filter",
+    "query": {
+        "WHERE": {
+            "OR": [
+                {
+                    "AN" : [
+                        {
+                            "IS": {
+                                "courses_dept": "cpsc"
+                            }
+                        },
+                        {
+                            "EQ": {
+                                "courses_avg": 85
+                            }
+                        }
+                    ]
+                },
+                {
+                    "NOT" :{
+                        "LT": {
+                            "courses_avg": 99
+                        }
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_id"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Invalid nested filter"
+}

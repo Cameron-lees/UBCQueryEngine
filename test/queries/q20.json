@@ -1,0 +1,25 @@
+{
+    "title": "Average = 0 - Testing EQ",
+    "query": {
+        "WHERE": {
+            "EQ": {
+                "courses_avg":0
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_avg":0,"courses_dept":"frst","courses_id":"202"},
+        {"courses_avg":0,"courses_dept":"lfs","courses_id":"100"},
+        {"courses_avg":0,"courses_dept":"lfs","courses_id":"100"}
+    ]
+}
+

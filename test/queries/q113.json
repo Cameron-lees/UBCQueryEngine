@@ -1,0 +1,34 @@
+{
+    "title": "Nested Wildcard with AND",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 90
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "c*"
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "*m"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+   "result":[ {"courses_dept":"chem","courses_avg":90.43,"courses_instructor":""},{"courses_dept":"chem","courses_avg":90.43,"courses_instructor":"chen, david"},{"courses_dept":"chem","courses_avg":90.56,"courses_instructor":"patrick, brian"},{"courses_dept":"chem","courses_avg":90.56,"courses_instructor":""},{"courses_dept":"chem","courses_avg":90.75,"courses_instructor":""},{"courses_dept":"chem","courses_avg":90.75,"courses_instructor":"krems, roman"},{"courses_dept":"chem","courses_avg":91.33,"courses_instructor":"blades, michael;turner, robin"},{"courses_dept":"chem","courses_avg":91.33,"courses_instructor":""},{"courses_dept":"chem","courses_avg":91.6,"courses_instructor":"blades, michael;turner, robin"},{"courses_dept":"chem","courses_avg":91.6,"courses_instructor":""},{"courses_dept":"comm","courses_avg":92.45,"courses_instructor":""},{"courses_dept":"comm","courses_avg":92.45,"courses_instructor":"ghement, isabella"},{"courses_dept":"chem","courses_avg":92.5,"courses_instructor":"chen, david"},{"courses_dept":"chem","courses_avg":92.5,"courses_instructor":""},{"courses_dept":"chem","courses_avg":92.57,"courses_instructor":"patrick, brian"},{"courses_dept":"chem","courses_avg":92.57,"courses_instructor":""},{"courses_dept":"comm","courses_avg":94.5,"courses_instructor":"ghement, isabella"},{"courses_dept":"comm","courses_avg":94.5,"courses_instructor":""},{"courses_dept":"comm","courses_avg":94.56,"courses_instructor":"ghement, isabella"},{"courses_dept":"comm","courses_avg":94.56,"courses_instructor":""},{"courses_dept":"comm","courses_avg":94.75,"courses_instructor":"ghement, isabella"},{"courses_dept":"comm","courses_avg":94.75,"courses_instructor":""}]
+}

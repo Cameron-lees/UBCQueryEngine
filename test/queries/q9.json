@@ -1,0 +1,19 @@
+{
+    "title": "Invalid ID and Key",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg":97
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "coursesInvalid_deptInvalid",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: The Column key ID and key doesn't exist"
+}

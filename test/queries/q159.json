@@ -1,0 +1,34 @@
+{
+    "title": "Simple rooms",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_fullname": "Henry Angus"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_fullname"
+            ],
+            "ORDER": {
+                "dir": "UP",
+                "keys": [
+                    "rooms_fullname"
+                ]
+            }
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+       {"rooms_fullname":"Henry Angus"}
+    ]
+}

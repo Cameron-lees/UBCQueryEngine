@@ -1,0 +1,37 @@
+{
+    "title": "no group or apply",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_fullname": "Henry Angus"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_fullname",
+                "maxSeats",
+                "sumCount"
+            ],
+            "ORDER": {
+                "dir": "DOWN",
+                "keys": [
+                    "maxSeats",
+                    "sumCount"
+                ]
+            }
+        },
+        "TRANSFORMATIONS": {
+        }
+    },
+    "isQueryValid": false,
+    "result": "Invalid no group/apply"
+}

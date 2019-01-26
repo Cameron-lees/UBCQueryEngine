@@ -1,0 +1,74 @@
+{
+    "title": "test2",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_fullname": "Henry Angus"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 0
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_shortname",
+                "maxSeats"
+            ],
+            "ORDER": {
+                "dir": "UP",
+                "keys": [
+                    "maxSeats"
+                ]
+            }
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "rooms_shortname"
+            ],
+            "APPLY": [
+                {
+                    "maxSeats": {
+                        "MAX": "rooms_seats"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "rooms_shortname": "WESB",
+            "maxSeats": 325
+        },
+        {
+            "rooms_shortname": "ESB",
+            "maxSeats": 350
+        },
+        {
+            "rooms_shortname": "LSC",
+            "maxSeats": 350
+        },
+        {
+            "rooms_shortname": "HEBB",
+            "maxSeats": 375
+        },
+        {
+            "rooms_shortname": "CIRS",
+            "maxSeats": 426
+        },
+        {
+            "rooms_shortname": "OSBO",
+            "maxSeats": 442
+        },
+        {
+            "rooms_shortname": "WOOD",
+            "maxSeats": 503
+        }
+    ]
+}

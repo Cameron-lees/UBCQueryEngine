@@ -1,0 +1,22 @@
+{
+    "title": "Multiple Keys in GT",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": 99,
+                "courses_pass": 50
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error: Multiple keys in GT"
+}
+

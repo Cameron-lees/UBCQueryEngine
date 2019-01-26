@@ -1,0 +1,29 @@
+{
+    "title": "Nested Wildcard - One valid Wildcard, One Invalid - AND",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "c*c"
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "*reid"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Cannot have an asterisks in middle of string"
+}

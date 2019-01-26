@@ -1,0 +1,20 @@
+{
+    "title": "OR is missing filter",
+    "query": {
+        "WHERE": {
+            "Or": []
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_instructor",
+                "courses_avg",
+                "courses_title"
+            ],
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Or must include a filter"
+}

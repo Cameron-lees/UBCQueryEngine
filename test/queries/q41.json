@@ -1,0 +1,20 @@
+{
+    "title": "GT and Courses_avg must operate on a number",
+    "query": {
+        "WHERE": {
+            "GT": {
+                "courses_avg": "90"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "The MComparison value must be a number."
+}

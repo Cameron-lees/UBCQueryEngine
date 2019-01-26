@@ -1,0 +1,25 @@
+{
+    "title": "Options before Where",
+    "query": {
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        },
+        "WHERE": {
+            "IS": {
+                "courses_instructor": "*reid"
+            }
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_avg":79,"courses_id":"410","courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_avg":81.17,"courses_id":"310","courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_avg":89,"courses_id":"507","courses_instructor":"holmes, reid"}
+    ]
+}

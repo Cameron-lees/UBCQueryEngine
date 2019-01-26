@@ -1,0 +1,34 @@
+{
+    "title": "AND LT/IS",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "LT": {
+                        "courses_avg": 62
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_dept": "econ"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_id"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"econ","courses_id":"101","courses_avg":61.96},
+        {"courses_dept":"econ","courses_id":"101","courses_avg":60.89},
+        {"courses_dept":"econ","courses_id":"102","courses_avg":61.04},
+        {"courses_dept":"econ","courses_id":"221","courses_avg":61.97}
+    ]
+}

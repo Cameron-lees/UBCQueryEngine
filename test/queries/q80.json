@@ -1,0 +1,158 @@
+{
+    "title": "Valid NOT Test",
+    "query": {
+        "WHERE": {
+            "NOT": {
+                "LT": {
+                    "courses_avg": 98
+                }
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_id",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": [
+        {
+            "courses_id": "599",
+            "courses_avg": 98,
+            "courses_instructor": "grady, albert wayne"
+        },
+        {
+            "courses_id": "599",
+            "courses_avg": 98,
+            "courses_instructor": "maillard, keith"
+        },
+        {
+            "courses_id": "421",
+            "courses_avg": 98.08,
+            "courses_instructor": "cole, kenneth"
+        },
+        {
+            "courses_id": "509",
+            "courses_avg": 98.21,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "509",
+            "courses_avg": 98.21,
+            "courses_instructor": "krist, jennifer"
+        },
+        {
+            "courses_id": "421",
+            "courses_avg": 98.36,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "519",
+            "courses_avg": 98.45,
+            "courses_instructor": "cannon, joanna"
+        },
+        {
+            "courses_id": "519",
+            "courses_avg": 98.45,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "578",
+            "courses_avg": 98.5,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "578",
+            "courses_avg": 98.5,
+            "courses_instructor": "burrows, marlene;harding, jillian;krist, jennifer;mccuaig, fairleth"
+        },
+        {
+            "courses_id": "578",
+            "courses_avg": 98.58,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "578",
+            "courses_avg": 98.58,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "449",
+            "courses_avg": 98.58,
+            "courses_instructor": "grow, laura"
+        },
+        {
+            "courses_id": "449",
+            "courses_avg": 98.58,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "421",
+            "courses_avg": 98.7,
+            "courses_instructor": "cole, kenneth"
+        },
+        {
+            "courses_id": "509",
+            "courses_avg": 98.71,
+            "courses_instructor": "brew, nancy"
+        },
+        {
+            "courses_id": "509",
+            "courses_avg": 98.71,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "541",
+            "courses_avg": 98.75,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "541",
+            "courses_avg": 98.75,
+            "courses_instructor": "coria, lino"
+        },
+        {
+            "courses_id": "449",
+            "courses_avg": 98.76,
+            "courses_instructor": "grow, laura"
+        },
+        {
+            "courses_id": "449",
+            "courses_avg": 98.76,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "449",
+            "courses_avg": 98.8,
+            "courses_instructor": "grow, laura"
+        },
+        {
+            "courses_id": "300",
+            "courses_avg": 98.98,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "300",
+            "courses_avg": 98.98,
+            "courses_instructor": "frank, erica"
+        },
+        {
+            "courses_id": "574",
+            "courses_avg": 99.19,
+            "courses_instructor": "cox, daniel"
+        },
+        {
+            "courses_id": "527",
+            "courses_avg": 99.78,
+            "courses_instructor": ""
+        },
+        {
+            "courses_id": "527",
+            "courses_avg": 99.78,
+            "courses_instructor": "gomez, jose"
+        }
+    ]
+}

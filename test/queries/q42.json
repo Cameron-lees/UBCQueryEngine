@@ -1,0 +1,73 @@
+{
+    "title": "Testing NOT inside of AND",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "GT": {
+                        "courses_avg": 95.5
+                    }
+                },
+                {
+                    "NOT" :{
+                        "IS": {
+                            "courses_dept": "cpsc"
+                        }
+                    }
+                },
+                {
+                    "LT": {
+                        "courses_avg": 96
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"chbe","courses_id":"551","courses_avg":95.54},
+            {"courses_dept":"chbe","courses_id":"551","courses_avg":95.54},
+            {"courses_dept":"math","courses_id":"534","courses_avg":95.56},
+            {"courses_dept":"math","courses_id":"534","courses_avg":95.56},
+            {"courses_dept":"edcp","courses_id":"377","courses_avg":95.58},
+            {"courses_dept":"edcp","courses_id":"377","courses_avg":95.58},
+            {"courses_dept":"mine","courses_id":"553","courses_avg":95.6},
+            {"courses_dept":"etec","courses_id":"531","courses_avg":95.63},
+            {"courses_dept":"math","courses_id":"510","courses_avg":95.67},
+            {"courses_dept":"epse","courses_id":"415","courses_avg":95.67},
+            {"courses_dept":"epse","courses_id":"415","courses_avg":95.67},
+            {"courses_dept":"math","courses_id":"510","courses_avg":95.67},
+            {"courses_dept":"musc","courses_id":"506","courses_avg":95.67},
+            {"courses_dept":"crwr","courses_id":"530","courses_avg":95.7},
+            {"courses_dept":"crwr","courses_id":"530","courses_avg":95.7},
+            {"courses_dept":"epse","courses_id":"449","courses_avg":95.72},
+            {"courses_dept":"spph","courses_id":"518","courses_avg":95.75},
+            {"courses_dept":"spph","courses_id":"518","courses_avg":95.75},
+            {"courses_dept":"psyc","courses_id":"537","courses_avg":95.75},
+            {"courses_dept":"psyc","courses_id":"537","courses_avg":95.75},
+            {"courses_dept":"spph","courses_id":"200","courses_avg":95.76},
+            {"courses_dept":"edst","courses_id":"505","courses_avg":95.78},
+            {"courses_dept":"edst","courses_id":"505","courses_avg":95.78},
+            {"courses_dept":"cnps","courses_id":"504","courses_avg":95.78},
+            {"courses_dept":"cnps","courses_id":"504","courses_avg":95.78},
+            {"courses_dept":"epse","courses_id":"520","courses_avg":95.83},
+            {"courses_dept":"epse","courses_id":"520","courses_avg":95.83},
+            {"courses_dept":"epse","courses_id":"528","courses_avg":95.86},
+            {"courses_dept":"epse","courses_id":"528","courses_avg":95.86},
+            {"courses_dept":"epse","courses_id":"592","courses_avg":95.9},
+            {"courses_dept":"sowk","courses_id":"505","courses_avg":95.93},
+            {"courses_dept":"sowk","courses_id":"505","courses_avg":95.93},
+            {"courses_dept":"apsc","courses_id":"279","courses_avg":95.94},
+            {"courses_dept":"apsc","courses_id":"279","courses_avg":95.95},
+            {"courses_dept":"etec","courses_id":"533","courses_avg":95.96},
+            {"courses_dept":"etec","courses_id":"533","courses_avg":95.96}
+    ]
+}

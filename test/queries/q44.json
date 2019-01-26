@@ -1,0 +1,34 @@
+{
+    "title": "AND EQ/GT",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "EQ": {
+                        "courses_avg": 90
+                    }
+                },
+                {
+                    "GT": {
+                        "courses_audit": 1
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_audit"
+            ],
+            "ORDER": "courses_audit"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"grsj","courses_id":"502","courses_avg":90,"courses_audit":2},
+        {"courses_dept":"grsj","courses_id":"502","courses_avg":90,"courses_audit":2},
+        {"courses_dept":"rhsc","courses_id":"507","courses_avg":90,"courses_audit":5}
+    ]
+}

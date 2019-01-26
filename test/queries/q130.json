@@ -1,0 +1,23 @@
+{
+    "title": "Empty String inside Columns and Order",
+    "query": {
+        "WHERE": {
+            "NOT": {
+                "NOT":{
+                    "LT": {
+                        "courses_avg": 35
+                    }
+                }
+            }
+
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                ""
+            ],
+            "ORDER": ""
+        }
+    },
+    "isQueryValid": false,
+    "result": "Empty String is not valid ID in Columns or Order"
+}

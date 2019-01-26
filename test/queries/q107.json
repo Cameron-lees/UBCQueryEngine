@@ -1,0 +1,25 @@
+{
+    "title": "Simple Wild Card - Search Before",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "courses_instructor" : "*reid"
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_avg":79,"courses_id":"410","courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_avg":81.17,"courses_id":"310","courses_instructor":"holmes, reid"},
+        {"courses_dept":"cpsc","courses_avg":89,"courses_id":"507","courses_instructor":"holmes, reid"}
+    ]
+}

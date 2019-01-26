@@ -1,0 +1,34 @@
+{
+    "title": "Nested Wildcard",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "GT": {
+                        "courses_avg": 85
+                    }
+                },
+                {
+                    "IS": {
+                        "courses_instructor": "holmes*"
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+   "result":[
+    {"courses_dept":"path","courses_id":"407","courses_avg":85.6,"courses_instructor":"holmes, daniel;jung, benjamin;keown, paul anthony;li, dailin;nislow, corey;pudek, morris;purssell, roy;xenakis, jennifer"},
+    {"courses_dept":"path","courses_id":"407","courses_avg":88.27,"courses_instructor":"holmes, daniel;keown, paul anthony;li, dailin;mattman, andre;pudek, morris;purssell, roy"},
+    {"courses_dept":"cpsc","courses_id":"507","courses_avg":89,"courses_instructor":"holmes, reid"}
+   ]
+}

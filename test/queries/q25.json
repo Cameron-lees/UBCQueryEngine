@@ -1,0 +1,20 @@
+{
+    "title": "MComparison Not String Course_Dept",
+    "query": {
+        "WHERE": {
+            "IS": {
+                "courses_dept": 0
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "The MComparison value must be a String when using IS."
+}

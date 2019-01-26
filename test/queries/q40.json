@@ -1,0 +1,20 @@
+{
+    "title": "AND is missing filter",
+    "query": {
+        "WHERE": {
+            "And": []
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_instructor",
+                "courses_avg",
+                "courses_title"
+            ],
+            "ORDER": "courses_instructor"
+        }
+    },
+    "isQueryValid": false,
+    "result": "And must include a filter"
+}

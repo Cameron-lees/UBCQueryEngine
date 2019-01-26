@@ -1,0 +1,27 @@
+{
+    "title": "Empty String inside Columns",
+    "query": {
+        "WHERE": {
+            "NOT": {
+                "NOT":{
+                    "LT": {
+                        "courses_avg": 35
+                    }
+                }
+            }
+
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg",
+                "courses_instructor",
+                ""
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": false,
+    "result": "Error"
+}

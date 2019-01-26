@@ -1,0 +1,37 @@
+{
+    "title": "AND IS/NOT-GT",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "courses_dept": "cpsc"
+                    }
+                },
+                {
+                    "NOT" :{
+                        "GT": {
+                            "courses_avg": 66
+                        }
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_id"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+        {"courses_dept":"cpsc","courses_id":"213","courses_avg":64.62},
+    {"courses_dept":"cpsc","courses_id":"221","courses_avg":65.1},
+    {"courses_dept":"cpsc","courses_id":"221","courses_avg":65.26},
+    {"courses_dept":"cpsc","courses_id":"513","courses_avg":64},
+    {"courses_dept":"cpsc","courses_id":"513","courses_avg":64}
+    ]
+}

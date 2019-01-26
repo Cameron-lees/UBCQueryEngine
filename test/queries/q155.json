@@ -1,0 +1,53 @@
+{
+    "title": "Direction not down or up",
+    "query": {
+        "WHERE": {
+            "AND": [
+                {
+                    "IS": {
+                        "rooms_fullname": "Henry Angus"
+                    }
+                },
+                {
+                    "GT": {
+                        "rooms_seats": 100
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "rooms_fullname",
+                "maxSeats",
+                "sumCount"
+            ],
+            "ORDER": {
+                "dir": "NEITHER",
+                "keys": [
+                    "maxSeats",
+                    "sumCount"
+                ]
+            }
+        },
+        "TRANSFORMATIONS": {
+            "GROUP": [
+                "rooms_fullname"
+            ],
+            "APPLY": [
+                {
+                    "maxSeats": {
+                        "SUM": "rooms_seats"
+                    }
+                },
+                {
+                    "sumCount": {
+                        "SUM": "rooms_lat"
+                    }
+                }
+            ]
+        }
+    },
+    "isQueryValid": false,
+
+    "result": "Direction not down or up"
+}

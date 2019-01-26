@@ -1,0 +1,21 @@
+{
+    "title": "Average = 100 - Empty Result",
+    "query": {
+        "WHERE": {
+            "EQ": {
+                "courses_avg":0
+            }
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_avg",
+                "courses_id"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result": [{"courses_dept":"frst","courses_avg":0,"courses_id":"202"},{"courses_dept":"lfs","courses_avg":0,"courses_id":"100"},{"courses_dept":"lfs","courses_avg":0,"courses_id":"100"}]
+}
+

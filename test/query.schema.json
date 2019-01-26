@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "Test Query",
+    "description": "A test query and its expected response when passed to InsightFacade.performQuery",
+    "type": "object",
+    "properties": {
+        "title": {
+            "description": "A meaningful test name that describes the query",
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 100
+        },
+        "query": {
+            "description": "The query that will be sent to performQuery"
+        },
+        "isQueryValid": {
+            "description": "Flag indicated if the query is valid. For invalid queries, the result should be set to the error message returned by performQuery."
+        },
+        "result": {
+            "description": "The expected response from performQuery. For invalid queries, set it to the error message returned by performQuery."
+        }
+    },
+    "additionalProperties": false,
+    "required": ["title", "isQueryValid", "result"]
+}

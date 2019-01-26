@@ -1,0 +1,25 @@
+{
+    "title": "Negative Value EQ",
+    "query": {
+        "WHERE": {
+            "AND":[
+                {
+                    "EQ": {
+                        "courses_avg": -1
+                    }
+                }
+            ]
+        },
+        "OPTIONS": {
+            "COLUMNS": [
+                "courses_dept",
+                "courses_id",
+                "courses_avg"
+            ],
+            "ORDER": "courses_avg"
+        }
+    },
+    "isQueryValid": true,
+    "result":[
+    ]
+}
